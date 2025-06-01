@@ -1,0 +1,81 @@
+clipsai/media/editor.py:21:1: F401 'clipsai.filesys.file.File' imported but unused
+clipsai/media/editor.py:21:38: E261 at least two spaces before inline comment
+clipsai/media/editor.py:508:89: E501 line too long (92 > 88 characters)
+clipsai/media/editor.py:511:9: E303 too many blank lines (2)
+clipsai/media/editor.py:512:89: E501 line too long (91 > 88 characters)
+clipsai/media/editor.py:530:36: E261 at least two spaces before inline comment
+clipsai/media/editor.py:532:89: E501 line too long (108 > 88 characters)
+clipsai/media/editor.py:534:89: E501 line too long (96 > 88 characters)
+clipsai/media/editor.py:536:44: E261 at least two spaces before inline comment
+clipsai/media/editor.py:537:1: W293 blank line contains whitespace
+clipsai/media/editor.py:542:14: E126 continuation line over-indented for hanging indent
+clipsai/media/editor.py:542:89: E501 line too long (103 > 88 characters)
+clipsai/media/editor.py:544:89: E501 line too long (103 > 88 characters)
+clipsai/media/editor.py:548:1: W293 blank line contains whitespace
+clipsai/media/editor.py:561:33: E261 at least two spaces before inline comment
+clipsai/media/editor.py:562:30: E261 at least two spaces before inline comment
+clipsai/media/editor.py:567:1: W293 blank line contains whitespace
+clipsai/media/editor.py:585:5: E303 too many blank lines (2)
+clipsai/media/editor.py:665:22: E261 at least two spaces before inline comment
+clipsai/media/editor.py:667:86: E261 at least two spaces before inline comment
+clipsai/media/editor.py:667:89: E501 line too long (106 > 88 characters)
+clipsai/media/editor.py:672:1: W293 blank line contains whitespace
+clipsai/media/editor.py:679:89: E501 line too long (93 > 88 characters)
+clipsai/media/editor.py:683:1: W293 blank line contains whitespace
+clipsai/media/editor.py:685:89: E501 line too long (110 > 88 characters)
+clipsai/media/editor.py:687:89: E501 line too long (97 > 88 characters)
+clipsai/media/editor.py:690:1: W293 blank line contains whitespace
+clipsai/media/editor.py:698:89: E501 line too long (101 > 88 characters)
+clipsai/media/editor.py:711:27: E261 at least two spaces before inline comment
+clipsai/media/editor.py:793:25: E261 at least two spaces before inline comment
+clipsai/media/editor.py:796:1: W293 blank line contains whitespace
+clipsai/media/editor.py:805:1: W293 blank line contains whitespace
+clipsai/media/editor.py:814:5: E303 too many blank lines (2)
+clipsai/media/editor.py:843:64: E261 at least two spaces before inline comment
+clipsai/media/editor.py:843:89: E501 line too long (99 > 88 characters)
+clipsai/media/editor.py:849:1: W293 blank line contains whitespace
+clipsai/media/editor.py:859:89: E501 line too long (97 > 88 characters)
+clipsai/media/editor.py:861:89: E501 line too long (101 > 88 characters)
+clipsai/media/editor.py:862:89: E501 line too long (103 > 88 characters)
+clipsai/media/editor.py:865:1: W293 blank line contains whitespace
+clipsai/media/editor.py:870:18: E261 at least two spaces before inline comment
+clipsai/media/editor.py:872:26: E261 at least two spaces before inline comment
+clipsai/media/editor.py:874:26: E261 at least two spaces before inline comment
+clipsai/media/editor.py:875:89: E501 line too long (96 > 88 characters)
+clipsai/media/editor.py:879:89: E501 line too long (107 > 88 characters)
+clipsai/media/editor.py:883:1: W293 blank line contains whitespace
+clipsai/media/editor.py:884:41: E261 at least two spaces before inline comment
+clipsai/media/editor.py:974:89: E501 line too long (92 > 88 characters)
+clipsai/media/editor.py:976:1: W293 blank line contains whitespace
+clipsai/media/editor.py:978:89: E501 line too long (95 > 88 characters)
+clipsai/media/editor.py:980:89: E501 line too long (104 > 88 characters)
+clipsai/media/editor.py:984:9: E303 too many blank lines (2)
+clipsai/media/editor.py:986:18: E261 at least two spaces before inline comment
+clipsai/media/editor.py:994:25: E261 at least two spaces before inline comment
+clipsai/media/editor.py:994:89: E501 line too long (96 > 88 characters)
+clipsai/media/editor.py:999:1: W293 blank line contains whitespace
+clipsai/media/editor.py:1075:51: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1096:58: W291 trailing whitespace
+clipsai/media/editor.py:1098:1: W293 blank line contains whitespace
+clipsai/media/editor.py:1113:36: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1115:1: W293 blank line contains whitespace
+clipsai/media/editor.py:1121:89: E501 line too long (100 > 88 characters)
+clipsai/media/editor.py:1122:63: W291 trailing whitespace
+clipsai/media/editor.py:1138:1: W293 blank line contains whitespace
+clipsai/media/editor.py:1146:5: E303 too many blank lines (2)
+clipsai/media/editor.py:1275:51: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1275:89: E501 line too long (92 > 88 characters)
+clipsai/media/editor.py:1279:25: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1288:27: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1288:89: E501 line too long (92 > 88 characters)
+clipsai/media/editor.py:1296:34: W291 trailing whitespace
+clipsai/media/editor.py:1301:89: E501 line too long (97 > 88 characters)
+clipsai/media/editor.py:1393:64: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1393:89: E501 line too long (112 > 88 characters)
+clipsai/media/editor.py:1397:72: E261 at least two spaces before inline comment
+clipsai/media/editor.py:1397:89: E501 line too long (112 > 88 characters)
+clipsai/media/editor.py:1398:14: E111 indentation is not a multiple of 4
+clipsai/media/editor.py:1398:14: E117 over-indented
+clipsai/media/editor.py:1402:18: E126 continuation line over-indented for hanging indent
+clipsai/media/editor.py:1404:89: E501 line too long (91 > 88 characters)
+clipsai/media/editor.py:1409:9: E303 too many blank lines (2)

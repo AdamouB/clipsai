@@ -1,0 +1,757 @@
+************* Module clipsai
+clipsai/__init__.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module clipsai.resize.exceptions
+clipsai/resize/exceptions.py:6:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/resize/exceptions.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/resize/exceptions.py:14:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.resize.resizer
+clipsai/resize/resizer.py:1:0: C0302: Too many lines in module (1034/1000) (too-many-lines)
+clipsai/resize/resizer.py:27:0: E0401: Unable to import 'facenet_pytorch' (import-error)
+clipsai/resize/resizer.py:28:0: E0401: Unable to import 'mediapipe' (import-error)
+clipsai/resize/resizer.py:68:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:68:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:79:4: R0913: Too many arguments (9/5) (too-many-arguments)
+clipsai/resize/resizer.py:79:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+clipsai/resize/resizer.py:79:4: R0914: Too many local variables (16/15) (too-many-locals)
+clipsai/resize/resizer.py:127:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:127:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:139:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:139:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:146:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:146:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:154:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:154:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:170:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:170:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:316:4: R0914: Too many local variables (23/15) (too-many-locals)
+clipsai/resize/resizer.py:435:4: R0914: Too many local variables (18/15) (too-many-locals)
+clipsai/resize/resizer.py:469:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:478:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:478:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:487:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:494:11: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:508:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:542:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:542:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:547:28: E1101: Module 'cv2' has no 'resize' member (no-member)
+clipsai/resize/resizer.py:548:15: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:549:32: I1101: Module 'torch' has no 'from_numpy' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:550:41: I1101: Module 'torch' has no 'uint8' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:555:11: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:556:29: I1101: Module 'torch' has no 'stack' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:567:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:567:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:570:4: R0913: Too many arguments (8/5) (too-many-arguments)
+clipsai/resize/resizer.py:570:4: R0917: Too many positional arguments (8/5) (too-many-positional-arguments)
+clipsai/resize/resizer.py:632:26: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:632:26: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:638:30: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:638:30: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:650:4: R0913: Too many arguments (7/5) (too-many-arguments)
+clipsai/resize/resizer.py:650:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+clipsai/resize/resizer.py:650:4: R0914: Too many local variables (22/15) (too-many-locals)
+clipsai/resize/resizer.py:724:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:724:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:726:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:726:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:729:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:729:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:742:30: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:742:30: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:756:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resizer.py:756:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resizer.py:760:4: R0914: Too many local variables (26/15) (too-many-locals)
+clipsai/resize/resizer.py:760:4: R0912: Too many branches (14/12) (too-many-branches)
+clipsai/resize/resizer.py:1033:11: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:1034:12: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/resize/resizer.py:20:0: C0411: first party import "clipsai.media.editor.MediaEditor" should be placed before local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:21:0: C0411: first party import "clipsai.media.video_file.VideoFile" should be placed before local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:22:0: C0411: first party import "clipsai.utils.pytorch" should be placed before local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:23:0: C0411: first party import "clipsai.utils.conversions.bytes_to_gibibytes" should be placed before local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:26:0: C0411: third party import "cv2" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:27:0: C0411: third party import "facenet_pytorch.MTCNN" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:28:0: C0411: third party import "mediapipe" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:29:0: C0411: third party import "numpy" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:30:0: C0411: third party import "sklearn.cluster.KMeans" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+clipsai/resize/resizer.py:31:0: C0411: third party import "torch" should be placed before first party imports "clipsai.media.editor.MediaEditor", "clipsai.media.video_file.VideoFile", "clipsai.utils.pytorch", "clipsai.utils.conversions.bytes_to_gibibytes" and local imports "crops.Crops", "exceptions.ResizerError", "img_proc.calc_img_bytes", "rect.Rect", "segment.Segment", "vid_proc.extract_frames" (wrong-import-order)
+************* Module clipsai.resize.img_proc
+clipsai/resize/img_proc.py:21:4: W0621: Redefining name 'rgb_to_gray' from outer scope (line 7) (redefined-outer-name)
+************* Module clipsai.resize.rect
+clipsai/resize/rect.py:40:15: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+************* Module clipsai.resize.segment
+clipsai/resize/segment.py:20:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/resize/segment.py:20:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+************* Module clipsai.resize.vid_proc
+clipsai/resize/vid_proc.py:22:0: R0914: Too many local variables (17/15) (too-many-locals)
+clipsai/resize/vid_proc.py:49:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/vid_proc.py:83:18: E1101: Module 'cv2' has no 'resize' member (no-member)
+clipsai/resize/vid_proc.py:13:0: C0411: first party import "clipsai.media.video_file.VideoFile" should be placed before local imports "exceptions.VideoProcessingError", "img_proc.rgb_to_gray" (wrong-import-order)
+clipsai/resize/vid_proc.py:16:0: C0411: third party import "av" should be placed before first party import "clipsai.media.video_file.VideoFile" and local imports "exceptions.VideoProcessingError", "img_proc.rgb_to_gray" (wrong-import-order)
+clipsai/resize/vid_proc.py:17:0: C0411: third party import "cv2" should be placed before first party import "clipsai.media.video_file.VideoFile" and local imports "exceptions.VideoProcessingError", "img_proc.rgb_to_gray" (wrong-import-order)
+clipsai/resize/vid_proc.py:18:0: C0411: third party import "numpy" should be placed before first party import "clipsai.media.video_file.VideoFile" and local imports "exceptions.VideoProcessingError", "img_proc.rgb_to_gray" (wrong-import-order)
+clipsai/resize/vid_proc.py:19:0: C0411: third party import "scenedetect.detect" should be placed before first party import "clipsai.media.video_file.VideoFile" and local imports "exceptions.VideoProcessingError", "img_proc.rgb_to_gray" (wrong-import-order)
+************* Module clipsai.resize.crops
+clipsai/resize/crops.py:26:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/resize/crops.py:26:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+************* Module clipsai.resize.resize
+clipsai/resize/resize.py:17:0: R0913: Too many arguments (13/5) (too-many-arguments)
+clipsai/resize/resize.py:17:0: R0917: Too many positional arguments (13/5) (too-many-positional-arguments)
+clipsai/resize/resize.py:17:0: R0914: Too many local variables (19/15) (too-many-locals)
+clipsai/resize/resize.py:76:18: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resize.py:76:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resize.py:80:18: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resize.py:80:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resize.py:83:18: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/resize/resize.py:83:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/resize/resize.py:13:0: C0411: first party import "clipsai.diarize.pyannote.PyannoteDiarizer" should be placed before local imports "crops.Crops", "resizer.Resizer", "vid_proc.detect_scenes" (wrong-import-order)
+clipsai/resize/resize.py:14:0: C0411: first party import "clipsai.media.audiovideo_file.AudioVideoFile" should be placed before local imports "crops.Crops", "resizer.Resizer", "vid_proc.detect_scenes" (wrong-import-order)
+************* Module clipsai.utils.exceptions
+clipsai/utils/exceptions.py:6:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/utils/exceptions.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/utils/exceptions.py:14:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/utils/exceptions.py:18:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/utils/exceptions.py:22:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.utils.type_checker
+clipsai/utils/type_checker.py:35:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/type_checker.py:59:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/utils/type_checker.py:59:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/utils/type_checker.py:59:11: E1120: No value for argument 'correct_types' in method call (no-value-for-parameter)
+clipsai/utils/type_checker.py:131:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/type_checker.py:164:14: E1120: No value for argument 'correct_types' in method call (no-value-for-parameter)
+clipsai/utils/type_checker.py:165:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/utils/type_checker.py:165:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/utils/type_checker.py:235:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/type_checker.py:244:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/type_checker.py:283:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/utils/type_checker.py:283:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+************* Module clipsai.utils.config_manager
+clipsai/utils/config_manager.py:60:8: W0107: Unnecessary pass statement (unnecessary-pass)
+************* Module clipsai.utils.pytorch
+clipsai/utils/pytorch.py:56:15: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/pytorch.py:79:4: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/utils/pytorch.py:79:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/utils/pytorch.py:122:7: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:150:28: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:154:27: I1101: Module 'torch' has no 'backends' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:203:29: I1101: Module 'torch' has no 'tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:203:56: I1101: Module 'torch' has no 'tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:221:7: I1101: Module 'torch' has no 'is_tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:222:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/pytorch.py:226:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/pytorch.py:231:25: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/pytorch.py:233:22: I1101: Module 'torch' has no 'abs' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:234:18: I1101: Module 'torch' has no 'max' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:240:21: I1101: Module 'torch' has no 'empty' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:244:21: I1101: Module 'torch' has no 'empty' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:247:11: E0606: Possibly using variable 'max_tensor' before assignment (possibly-used-before-assignment)
+clipsai/utils/pytorch.py:263:4: I1101: Module 'torch' has no 'manual_seed' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:289:7: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:290:8: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/utils/pytorch.py:12:0: C0411: third party import "psutil" should be placed before local import "exceptions.InvalidComputeDeviceError" (wrong-import-order)
+clipsai/utils/pytorch.py:13:0: C0411: third party import "pynvml" should be placed before local import "exceptions.InvalidComputeDeviceError" (wrong-import-order)
+clipsai/utils/pytorch.py:14:0: C0411: third party import "torch" should be placed before local import "exceptions.InvalidComputeDeviceError" (wrong-import-order)
+************* Module clipsai.utils.conversions
+clipsai/utils/conversions.py:43:25: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/conversions.py:86:4: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+clipsai/utils/conversions.py:126:23: W0622: Redefining built-in 'bytes' (redefined-builtin)
+clipsai/utils/conversions.py:196:23: W0622: Redefining built-in 'bytes' (redefined-builtin)
+************* Module clipsai.utils.exception_handler
+clipsai/utils/exception_handler.py:47:8: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+clipsai/utils/exception_handler.py:75:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:76:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:77:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:78:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:79:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:80:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/utils/exception_handler.py:69:8: W0612: Unused variable 'exc_type' (unused-variable)
+clipsai/utils/exception_handler.py:12:0: C0411: first party import "clipsai.transcribe.exceptions.NoSpeechError" should be placed before local import "exceptions.InvalidInputDataError" (wrong-import-order)
+************* Module clipsai.filesys.exceptions
+clipsai/filesys/exceptions.py:7:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/filesys/exceptions.py:11:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/filesys/exceptions.py:15:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/filesys/exceptions.py:19:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.filesys.file
+clipsai/filesys/file.py:27:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/filesys/file.py:109:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/file.py:131:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+clipsai/filesys/file.py:149:28: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/filesys/file.py:149:28: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/file.py:154:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/filesys/file.py:154:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/file.py:136:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/filesys/file.py:288:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/file.py:271:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/filesys/file.py:19:0: C0411: third party import "magic" should be placed before local imports "exceptions.FileError", "object.FileSystemObject" (wrong-import-order)
+************* Module clipsai.filesys.json_file
+clipsai/filesys/json_file.py:20:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/filesys/json_file.py:74:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/json_file.py:50:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/filesys/json_file.py:114:15: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+clipsai/filesys/json_file.py:114:15: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+clipsai/filesys/json_file.py:134:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+clipsai/filesys/json_file.py:12:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local import "file.File" (wrong-import-order)
+************* Module clipsai.filesys.dir
+clipsai/filesys/dir.py:20:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/filesys/dir.py:83:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/filesys/dir.py:83:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/dir.py:100:8: W0622: Redefining built-in 'dir' (redefined-builtin)
+clipsai/filesys/dir.py:105:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/filesys/dir.py:105:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/dir.py:143:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/dir.py:174:16: E0606: Possibly using variable 'fs_object' before assignment (possibly-used-before-assignment)
+clipsai/filesys/dir.py:315:12: W0622: Redefining built-in 'dir' (redefined-builtin)
+clipsai/filesys/dir.py:345:12: W0622: Redefining built-in 'dir' (redefined-builtin)
+clipsai/filesys/dir.py:338:20: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/filesys/dir.py:338:20: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+************* Module clipsai.filesys.object
+clipsai/filesys/object.py:121:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/object.py:178:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/object.py:13:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local import "exceptions.FileSystemObjectError" (wrong-import-order)
+************* Module clipsai.filesys.manager
+clipsai/filesys/manager.py:63:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/filesys/manager.py:90:8: W0622: Redefining built-in 'dir' (redefined-builtin)
+clipsai/filesys/manager.py:152:8: W0622: Redefining built-in 'dir' (redefined-builtin)
+clipsai/filesys/manager.py:14:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local imports "exceptions.FileSystemObjectError", "dir.Dir", "object.FileSystemObject" (wrong-import-order)
+************* Module clipsai.media.temporal_media_file
+clipsai/media/temporal_media_file.py:21:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/media/temporal_media_file.py:73:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/temporal_media_file.py:96:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/temporal_media_file.py:97:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+************* Module clipsai.media.exceptions
+clipsai/media/exceptions.py:8:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:12:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:16:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:20:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:24:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:28:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:32:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:36:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:36:0: R0901: Too many ancestors (8/7) (too-many-ancestors)
+clipsai/media/exceptions.py:40:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/media/exceptions.py:40:0: R0901: Too many ancestors (8/7) (too-many-ancestors)
+************* Module clipsai.media.video_file
+clipsai/media/video_file.py:32:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/media/video_file.py:86:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:91:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:62:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/media/video_file.py:148:4: W0221: Number of parameters was 2 in 'TemporalMediaFile.get_bitrate' and is now 1 in overriding 'VideoFile.get_bitrate' method (arguments-differ)
+clipsai/media/video_file.py:212:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:220:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:224:12: W4902: Using deprecated method warn() (deprecated-method)
+clipsai/media/video_file.py:227:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:237:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/video_file.py:256:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:262:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/video_file.py:264:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:306:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:310:12: W4902: Using deprecated method warn() (deprecated-method)
+clipsai/media/video_file.py:327:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/video_file.py:21:0: C0411: first party import "clipsai.utils.conversions.seconds_to_hms_time_format" should be placed before local imports "exceptions.VideoFileError", "image_file.ImageFile", "temporal_media_file.TemporalMediaFile" (wrong-import-order)
+************* Module clipsai.media.media_file
+clipsai/media/media_file.py:81:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:110:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/media_file.py:116:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:128:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:129:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:130:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:131:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:132:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:133:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:134:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:165:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/media_file.py:173:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:185:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:186:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:187:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:188:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:189:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:190:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:191:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:192:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:233:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/media_file.py:250:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:251:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:252:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:253:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:254:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:255:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:328:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:413:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/media_file.py:397:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/media/media_file.py:13:0: C0411: first party import "clipsai.filesys.file.File" should be placed before local import "exceptions.NoAudioStreamError" (wrong-import-order)
+clipsai/media/media_file.py:14:0: C0411: first party import "clipsai.filesys.manager.FileSystemManager" should be placed before local import "exceptions.NoAudioStreamError" (wrong-import-order)
+************* Module clipsai.media.audio_file
+clipsai/media/audio_file.py:27:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/media/audio_file.py:81:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/audio_file.py:86:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/audio_file.py:93:4: W0221: Number of parameters was 2 in 'TemporalMediaFile.get_bitrate' and is now 1 in overriding 'AudioFile.get_bitrate' method (arguments-differ)
+clipsai/media/audio_file.py:149:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/audio_file.py:169:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/audio_file.py:175:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/audio_file.py:17:0: C0411: first party import "clipsai.filesys.file.File" should be placed before local import "temporal_media_file.TemporalMediaFile" (wrong-import-order)
+************* Module clipsai.media.editor
+clipsai/media/editor.py:1:0: C0302: Too many lines in module (1493/1000) (too-many-lines)
+clipsai/media/editor.py:50:4: R0913: Too many arguments (14/5) (too-many-arguments)
+clipsai/media/editor.py:50:4: R0917: Too many positional arguments (14/5) (too-many-positional-arguments)
+clipsai/media/editor.py:50:4: R0914: Too many local variables (25/15) (too-many-locals)
+clipsai/media/editor.py:176:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:184:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/editor.py:191:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:197:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:199:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:213:4: R0913: Too many arguments (9/5) (too-many-arguments)
+clipsai/media/editor.py:213:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+clipsai/media/editor.py:265:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:281:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:282:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:291:4: R0913: Too many arguments (9/5) (too-many-arguments)
+clipsai/media/editor.py:291:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+clipsai/media/editor.py:347:4: R0913: Too many arguments (21/5) (too-many-arguments)
+clipsai/media/editor.py:347:4: R0917: Too many positional arguments (21/5) (too-many-positional-arguments)
+clipsai/media/editor.py:347:4: R0914: Too many local variables (32/15) (too-many-locals)
+clipsai/media/editor.py:489:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:496:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:502:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:523:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:534:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:540:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:549:36: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:555:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/editor.py:585:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:607:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:623:4: R0913: Too many arguments (18/5) (too-many-arguments)
+clipsai/media/editor.py:623:4: R0917: Too many positional arguments (18/5) (too-many-positional-arguments)
+clipsai/media/editor.py:623:4: R0914: Too many local variables (22/15) (too-many-locals)
+clipsai/media/editor.py:759:4: R0913: Too many arguments (7/5) (too-many-arguments)
+clipsai/media/editor.py:759:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+clipsai/media/editor.py:822:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:829:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/editor.py:849:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:850:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:851:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:852:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:853:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:854:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:855:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:856:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:860:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:862:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:911:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:918:32: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:922:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:932:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/editor.py:952:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:958:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:960:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:974:4: R0913: Too many arguments (15/5) (too-many-arguments)
+clipsai/media/editor.py:974:4: R0917: Too many positional arguments (15/5) (too-many-positional-arguments)
+clipsai/media/editor.py:974:4: R0914: Too many local variables (19/15) (too-many-locals)
+clipsai/media/editor.py:1058:17: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+clipsai/media/editor.py:1069:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1089:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1090:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1091:14: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1094:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:1096:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1110:4: R0913: Too many arguments (12/5) (too-many-arguments)
+clipsai/media/editor.py:1110:4: R0917: Too many positional arguments (12/5) (too-many-positional-arguments)
+clipsai/media/editor.py:1110:4: R0914: Too many local variables (19/15) (too-many-locals)
+clipsai/media/editor.py:1187:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1206:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:1208:20: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1228:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/media/editor.py:1259:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1366:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1371:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1376:8: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+clipsai/media/editor.py:1378:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1384:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1389:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:1339:4: R0911: Too many return statements (7/6) (too-many-return-statements)
+clipsai/media/editor.py:1474:11: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+clipsai/media/editor.py:1476:13: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+clipsai/media/editor.py:1478:13: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+clipsai/media/editor.py:1480:13: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+clipsai/media/editor.py:1485:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/editor.py:20:0: C0411: first party import "clipsai.filesys.file.File" should be placed before local imports "exceptions.MediaEditorError", "audio_file.AudioFile", "audiovideo_file.AudioVideoFile" (...) "media_file.MediaFile", "temporal_media_file.TemporalMediaFile", "video_file.VideoFile" (wrong-import-order)
+clipsai/media/editor.py:21:0: C0411: first party import "clipsai.filesys.manager.FileSystemManager" should be placed before local imports "exceptions.MediaEditorError", "audio_file.AudioFile", "audiovideo_file.AudioVideoFile" (...) "media_file.MediaFile", "temporal_media_file.TemporalMediaFile", "video_file.VideoFile" (wrong-import-order)
+clipsai/media/editor.py:22:0: C0411: first party import "clipsai.utils.conversions.seconds_to_hms_time_format" should be placed before local imports "exceptions.MediaEditorError", "audio_file.AudioFile", "audiovideo_file.AudioVideoFile" (...) "media_file.MediaFile", "temporal_media_file.TemporalMediaFile", "video_file.VideoFile" (wrong-import-order)
+clipsai/media/editor.py:23:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local imports "exceptions.MediaEditorError", "audio_file.AudioFile", "audiovideo_file.AudioVideoFile" (...) "media_file.MediaFile", "temporal_media_file.TemporalMediaFile", "video_file.VideoFile" (wrong-import-order)
+************* Module clipsai.media.image_file
+clipsai/media/image_file.py:13:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/media/image_file.py:67:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/image_file.py:73:4: W0221: Number of parameters was 3 in 'MediaFile.get_stream_info' and is now 2 in overriding 'ImageFile.get_stream_info' method (arguments-differ)
+************* Module clipsai.media.audiovideo_file
+clipsai/media/audiovideo_file.py:24:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/media/audiovideo_file.py:78:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/audiovideo_file.py:85:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/media/audiovideo_file.py:54:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/media/audiovideo_file.py:90:4: W0221: Number of parameters was 1 in 'AudioFile.get_bitrate' and is now 2 in overriding 'AudioVideoFile.get_bitrate' method (arguments-differ)
+clipsai/media/audiovideo_file.py:104:8: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+clipsai/media/audiovideo_file.py:109:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+************* Module clipsai.transcribe.exceptions
+clipsai/transcribe/exceptions.py:6:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/transcribe/exceptions.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/transcribe/exceptions.py:14:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.transcribe.transcription
+clipsai/transcribe/transcription.py:31:0: R0902: Too many instance attributes (10/7) (too-many-instance-attributes)
+clipsai/transcribe/transcription.py:103:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+clipsai/transcribe/transcription.py:166:16: E1120: No value for argument 'text' in constructor call (no-value-for-parameter)
+clipsai/transcribe/transcription.py:202:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcription.py:239:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcription.py:272:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcription.py:407:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:408:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:409:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:410:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:411:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:412:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:430:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:431:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:432:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:433:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:434:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:435:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:436:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:454:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:455:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:456:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:457:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:458:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:459:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:491:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:503:12: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+clipsai/transcribe/transcription.py:510:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcription.py:714:24: W0631: Using possibly undefined loop variable 'i' (undefined-loop-variable)
+clipsai/transcribe/transcription.py:812:19: W0612: Unused variable 'sentence_char' (unused-variable)
+clipsai/transcribe/transcription.py:879:12: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/transcribe/transcription.py:879:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:885:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:891:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:904:12: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:927:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:945:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:954:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcription.py:20:0: C0411: first party import "clipsai.filesys.json_file.JSONFile" should be placed before local imports "exceptions.TranscriptionError", "transcription_element.Sentence" (wrong-import-order)
+clipsai/transcribe/transcription.py:21:0: C0411: first party import "clipsai.filesys.manager.FileSystemManager" should be placed before local imports "exceptions.TranscriptionError", "transcription_element.Sentence" (wrong-import-order)
+clipsai/transcribe/transcription.py:22:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local imports "exceptions.TranscriptionError", "transcription_element.Sentence" (wrong-import-order)
+clipsai/transcribe/transcription.py:25:0: C0411: third party import "nltk" should be placed before first party imports "clipsai.filesys.json_file.JSONFile", "clipsai.filesys.manager.FileSystemManager", "clipsai.utils.type_checker.TypeChecker" and local imports "exceptions.TranscriptionError", "transcription_element.Sentence" (wrong-import-order)
+clipsai/transcribe/transcription.py:26:0: C0411: third party import "nltk.tokenize.sent_tokenize" should be placed before first party imports "clipsai.filesys.json_file.JSONFile", "clipsai.filesys.manager.FileSystemManager", "clipsai.utils.type_checker.TypeChecker" and local imports "exceptions.TranscriptionError", "transcription_element.Sentence" (wrong-import-order)
+************* Module clipsai.transcribe.transcription_element
+clipsai/transcribe/transcription_element.py:19:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/transcribe/transcription_element.py:19:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+clipsai/transcribe/transcription_element.py:159:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/transcribe/transcription_element.py:159:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/transcribe/transcription_element.py:159:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+clipsai/transcribe/transcription_element.py:199:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/transcribe/transcription_element.py:199:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/transcribe/transcription_element.py:199:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+clipsai/transcribe/transcription_element.py:240:4: R0913: Too many arguments (6/5) (too-many-arguments)
+clipsai/transcribe/transcription_element.py:240:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+************* Module clipsai.transcribe.transcriber
+clipsai/transcribe/transcriber.py:27:0: E0401: Unable to import 'whisperx' (import-error)
+clipsai/transcribe/transcriber.py:60:37: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/transcribe/transcriber.py:62:39: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/transcribe/transcriber.py:78:4: R0914: Too many local variables (22/15) (too-many-locals)
+clipsai/transcribe/transcriber.py:128:8: W0105: String statement has no effect (pointless-string-statement)
+clipsai/transcribe/transcriber.py:182:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcriber.py:195:12: W0707: Consider explicitly re-raising using 'raise Exception(str(e)) from e' (raise-missing-from)
+clipsai/transcribe/transcriber.py:195:12: W0719: Raising too general exception: Exception (broad-exception-raised)
+clipsai/transcribe/transcriber.py:197:12: W0612: Unused variable 'i' (unused-variable)
+clipsai/transcribe/transcriber.py:201:16: W0612: Unused variable 'j' (unused-variable)
+clipsai/transcribe/transcriber.py:254:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/transcribe/transcriber.py:287:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcriber.py:341:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcriber.py:363:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/transcribe/transcriber.py:363:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcriber.py:431:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcriber.py:455:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/transcribe/transcriber.py:455:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcriber.py:514:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/transcribe/transcriber.py:536:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+clipsai/transcribe/transcriber.py:536:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+clipsai/transcribe/transcriber.py:18:0: C0411: first party import "clipsai.media.audio_file.AudioFile" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:19:0: C0411: first party import "clipsai.media.editor.MediaEditor" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:20:0: C0411: first party import "clipsai.utils.config_manager.ConfigManager" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:21:0: C0411: first party import "clipsai.utils.pytorch.assert_valid_torch_device" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:22:0: C0411: first party import "clipsai.utils.type_checker.TypeChecker" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:23:0: C0411: first party import "clipsai.utils.utils.find_missing_dict_keys" should be placed before local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:26:0: C0411: third party import "torch" should be placed before first party imports "clipsai.media.audio_file.AudioFile", "clipsai.media.editor.MediaEditor", "clipsai.utils.config_manager.ConfigManager", "clipsai.utils.pytorch.assert_valid_torch_device", "clipsai.utils.type_checker.TypeChecker", "clipsai.utils.utils.find_missing_dict_keys" and local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+clipsai/transcribe/transcriber.py:27:0: C0411: third party import "whisperx" should be placed before first party imports "clipsai.media.audio_file.AudioFile", "clipsai.media.editor.MediaEditor", "clipsai.utils.config_manager.ConfigManager", "clipsai.utils.pytorch.assert_valid_torch_device", "clipsai.utils.type_checker.TypeChecker", "clipsai.utils.utils.find_missing_dict_keys" and local imports "exceptions.NoSpeechError", "exceptions.TranscriberConfigError", "transcription.Transcription" (wrong-import-order)
+************* Module clipsai.clip.exceptions
+clipsai/clip/exceptions.py:6:0: C0115: Missing class docstring (missing-class-docstring)
+clipsai/clip/exceptions.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.clip.text_embedder
+clipsai/clip/text_embedder.py:22:50: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/text_embedder.py:37:15: I1101: Module 'torch' has no 'tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/text_embedder.py:9:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+************* Module clipsai.clip.texttiler
+clipsai/clip/texttiler.py:66:4: R0913: Too many arguments (7/5) (too-many-arguments)
+clipsai/clip/texttiler.py:66:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+clipsai/clip/texttiler.py:66:4: R0914: Too many local variables (16/15) (too-many-locals)
+clipsai/clip/texttiler.py:68:20: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:74:21: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:119:8: C0103: Variable name "N" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:119:11: C0103: Variable name "E" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:125:16: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/clip/texttiler.py:124:12: W4902: Using deprecated method warn() (deprecated-method)
+clipsai/clip/texttiler.py:125:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:119:11: W0612: Unused variable 'E' (unused-variable)
+clipsai/clip/texttiler.py:149:4: R0914: Too many local variables (19/15) (too-many-locals)
+clipsai/clip/texttiler.py:151:20: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:154:9: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:179:8: C0103: Variable name "N" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:179:11: C0103: Variable name "E" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:181:21: I1101: Module 'torch' has no 'empty' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:179:11: W0612: Unused variable 'E' (unused-variable)
+clipsai/clip/texttiler.py:207:16: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:209:9: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:226:15: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:236:45: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:236:62: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:251:23: I1101: Module 'torch' has no 'zeros' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:282:22: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:284:9: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:303:8: C0103: Variable name "N" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:304:21: I1101: Module 'torch' has no 'empty' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:306:14: I1101: Module 'torch' has no 'mean' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:307:16: I1101: Module 'torch' has no 'std' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:318:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:325:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+clipsai/clip/texttiler.py:353:20: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:356:9: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:382:8: C0103: Variable name "N" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:382:11: C0103: Variable name "E" doesn't conform to snake_case naming style (invalid-name)
+clipsai/clip/texttiler.py:394:28: I1101: Module 'torch' has no 'concat' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:401:28: I1101: Module 'torch' has no 'stack' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:406:19: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:406:44: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:420:8: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+clipsai/clip/texttiler.py:421:19: I1101: Module 'torch' has no 'mean' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/texttiler.py:425:18: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:36:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+clipsai/clip/texttiler.py:481:12: W0123: Use of eval (eval-used)
+clipsai/clip/texttiler.py:494:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/clip/texttiler.py:502:4: W0237: Parameter 'config' has been renamed to 'texttile_config' in overriding 'TextTilerConfigManager.check_valid_config' method (arguments-renamed)
+clipsai/clip/texttiler.py:530:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:566:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:589:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:654:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:679:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:714:20: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:722:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/texttiler.py:19:0: C0411: first party import "clipsai.filesys.manager.FileSystemManager" should be placed before local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:20:0: C0411: first party import "clipsai.utils.config_manager.ConfigManager" should be placed before local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:21:0: C0411: first party import "clipsai.utils.pytorch.max_magnitude_2d" should be placed before local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:26:0: C0411: first party import "clipsai.utils.utils.find_missing_dict_keys" should be placed before local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:29:0: C0411: third party import "numpy" should be placed before first party imports "clipsai.filesys.manager.FileSystemManager", "clipsai.utils.config_manager.ConfigManager", "clipsai.utils.pytorch.max_magnitude_2d", "clipsai.utils.utils.find_missing_dict_keys" and local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:30:0: C0411: third party import "torch" should be placed before first party imports "clipsai.filesys.manager.FileSystemManager", "clipsai.utils.config_manager.ConfigManager", "clipsai.utils.pytorch.max_magnitude_2d", "clipsai.utils.utils.find_missing_dict_keys" and local import "exceptions.TextTilerError" (wrong-import-order)
+clipsai/clip/texttiler.py:31:0: C0411: third party import "torch.nn.functional" should be placed before first party imports "clipsai.filesys.manager.FileSystemManager", "clipsai.utils.config_manager.ConfigManager", "clipsai.utils.pytorch.max_magnitude_2d", "clipsai.utils.utils.find_missing_dict_keys" and local import "exceptions.TextTilerError" (wrong-import-order)
+************* Module clipsai.clip.clipfinder
+clipsai/clip/clipfinder.py:25:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+clipsai/clip/clipfinder.py:30:4: R0913: Too many arguments (8/5) (too-many-arguments)
+clipsai/clip/clipfinder.py:30:4: R0917: Too many positional arguments (8/5) (too-many-positional-arguments)
+clipsai/clip/clipfinder.py:177:4: W0102: Dangerous default value [] as argument (dangerous-default-value)
+clipsai/clip/clipfinder.py:177:4: R0913: Too many arguments (7/5) (too-many-arguments)
+clipsai/clip/clipfinder.py:177:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+clipsai/clip/clipfinder.py:180:25: I1101: Module 'torch' has no 'tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/clipfinder.py:185:21: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/clipfinder.py:232:25: I1101: Module 'torch' has no 'tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/clipfinder.py:234:21: I1101: Module 'torch' has no 'Tensor' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/clip/clipfinder.py:254:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/clipfinder.py:209:8: W0201: Attribute '_text_tile_round' defined outside __init__ (attribute-defined-outside-init)
+clipsai/clip/clipfinder.py:25:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+clipsai/clip/clipfinder.py:380:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+clipsai/clip/clipfinder.py:412:8: C0206: Consider iterating with .items() (consider-using-dict-items)
+clipsai/clip/clipfinder.py:412:19: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+clipsai/clip/clipfinder.py:447:19: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/clipfinder.py:499:20: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/clipfinder.py:507:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/clip/clipfinder.py:15:0: C0411: first party import "clipsai.transcribe.transcription.Transcription" should be placed before local imports "clip.Clip", "exceptions.ClipFinderError", "text_embedder.TextEmbedder", "texttiler.TextTiler", "texttiler.TextTilerConfigManager" (wrong-import-order)
+clipsai/clip/clipfinder.py:16:0: C0411: first party import "clipsai.utils.pytorch.get_compute_device" should be placed before local imports "clip.Clip", "exceptions.ClipFinderError", "text_embedder.TextEmbedder", "texttiler.TextTiler", "texttiler.TextTilerConfigManager" (wrong-import-order)
+clipsai/clip/clipfinder.py:17:0: C0411: first party import "clipsai.utils.utils.find_missing_dict_keys" should be placed before local imports "clip.Clip", "exceptions.ClipFinderError", "text_embedder.TextEmbedder", "texttiler.TextTiler", "texttiler.TextTilerConfigManager" (wrong-import-order)
+clipsai/clip/clipfinder.py:20:0: C0411: third party import "torch" should be placed before first party imports "clipsai.transcribe.transcription.Transcription", "clipsai.utils.pytorch.get_compute_device", "clipsai.utils.utils.find_missing_dict_keys" and local imports "clip.Clip", "exceptions.ClipFinderError", "text_embedder.TextEmbedder", "texttiler.TextTiler", "texttiler.TextTilerConfigManager" (wrong-import-order)
+************* Module clipsai.diarize.exceptions
+clipsai/diarize/exceptions.py:6:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module clipsai.diarize.pyannote
+clipsai/diarize/pyannote.py:27:0: E0401: Unable to import 'pyannote.audio' (import-error)
+clipsai/diarize/pyannote.py:27:0: E0611: No name 'audio' in module 'pyannote' (no-name-in-module)
+clipsai/diarize/pyannote.py:60:13: I1101: Module 'torch' has no 'device' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/diarize/pyannote.py:61:22: W1202: Use lazy % formatting in logging functions (logging-format-interpolation)
+clipsai/diarize/pyannote.py:61:22: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/diarize/pyannote.py:97:16: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+clipsai/diarize/pyannote.py:120:4: R0914: Too many local variables (16/15) (too-many-locals)
+clipsai/diarize/pyannote.py:271:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+clipsai/diarize/pyannote.py:291:11: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/diarize/pyannote.py:292:12: I1101: Module 'torch' has no 'cuda' member, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. (c-extension-no-member)
+clipsai/diarize/pyannote.py:27:0: C0411: third party import "pyannote.audio.Pipeline" should be placed before first party imports "clipsai.media.audio_file.AudioFile", "clipsai.utils.pytorch.get_compute_device"  (wrong-import-order)
+clipsai/diarize/pyannote.py:28:0: C0411: third party import "pyannote.core.annotation.Annotation" should be placed before first party imports "clipsai.media.audio_file.AudioFile", "clipsai.utils.pytorch.get_compute_device"  (wrong-import-order)
+clipsai/diarize/pyannote.py:29:0: C0411: third party import "torch" should be placed before first party imports "clipsai.media.audio_file.AudioFile", "clipsai.utils.pytorch.get_compute_device"  (wrong-import-order)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.clip.clipfinder:[467:513]
+==clipsai.clip.texttiler:[682:728]
+        return None
+
+    def check_valid_clip_times(
+        self, min_clip_duration: float, max_clip_duration: float
+    ) -> str or None:
+        """
+        Checks the clip times are valid. Returns None if the clip times are valid, a
+        descriptive error message if invalid.
+
+        Parameters
+        ----------
+        min_clip_duration: float
+            The minimum clip time in seconds
+        max_clip_duration: float
+            The maximum clip time in seconds
+
+        Returns
+        -------
+        str or None
+            None if the clip times are valid, otherwise an error message.
+        """
+        # type check
+        self._type_checker.check_type(
+            min_clip_duration, "min_clip_duration", (float, int)
+        )
+        self._type_checker.check_type(
+            max_clip_duration, "max_clip_duration", (float, int)
+        )
+
+        # minimum clip time
+        if min_clip_duration < 0:
+            error = "min_clip_duration must be 0 or greater, not {}" "".format(
+                min_clip_duration
+            )
+            return error
+
+        # maximum clip time
+        if max_clip_duration <= min_clip_duration:
+            error = (
+                "max_clip_duration of {} must be greater than "
+                "min_clip_duration of {}"
+                "".format(max_clip_duration, min_clip_duration)
+            )
+            return error
+
+        return None (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.media.editor:[185:198]
+==clipsai.media.video_file:[250:263]
+            capture_output=True,
+            text=True,
+        )
+
+        msg = (
+            "Terminal return code: '{}'\n"
+            "Output: '{}'\n"
+            "Err Output: '{}'\n"
+            "".format(result.returncode, result.stdout, result.stderr)
+        )
+        # failure
+        if result.returncode != SUCCESS:
+            err_msg = ( (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.media.audio_file:[162:175]
+==clipsai.media.video_file:[249:262]
+            ],
+            capture_output=True,
+            text=True,
+        )
+
+        msg = (
+            "Terminal return code: '{}'\n"
+            "Output: '{}'\n"
+            "Err Output: '{}'\n"
+            "".format(result.returncode, result.stdout, result.stderr)
+        )
+        # failure
+        if result.returncode != SUCCESS: (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.media.audio_file:[163:175]
+==clipsai.media.editor:[185:197]
+            capture_output=True,
+            text=True,
+        )
+
+        msg = (
+            "Terminal return code: '{}'\n"
+            "Output: '{}'\n"
+            "Err Output: '{}'\n"
+            "".format(result.returncode, result.stdout, result.stderr)
+        )
+        # failure
+        if result.returncode != SUCCESS: (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.clip.clipfinder:[459:489]
+==clipsai.clip.texttiler:[535:560]
+            "smoothing_width": self.check_valid_smoothing_width,
+            "window_compare_pool_method": self.check_valid_window_compare_pool_method,
+        }
+        for setting, checker in setting_checkers.items():
+            err = checker(texttile_config[setting])
+            if err is not None:
+                return err
+
+        return None
+
+    def check_valid_k(self, k: int) -> str or None:
+        """
+        Checks the window size is valid. Returns None if the window size is valid, a
+        descriptive error message if invalid.
+
+        Parameters
+        ----------
+        k: int
+            The window size used by TextTiling algorithm
+
+        Returns
+        -------
+        str or None
+            None if the window size is valid, otherwise an error message.
+        """ (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.media.editor:[950:959]
+==clipsai.media.video_file:[254:263]
+        msg = (
+            "Terminal return code: '{}'\n"
+            "Output: '{}'\n"
+            "Err Output: '{}'\n"
+            "".format(result.returncode, result.stdout, result.stderr)
+        )
+        # failure
+        if result.returncode != SUCCESS:
+            err_msg = ( (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.media.audio_file:[167:175]
+==clipsai.media.editor:[950:958]
+        msg = (
+            "Terminal return code: '{}'\n"
+            "Output: '{}'\n"
+            "Err Output: '{}'\n"
+            "".format(result.returncode, result.stdout, result.stderr)
+        )
+        # failure
+        if result.returncode != SUCCESS: (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.clip.clipfinder:[441:449]
+==clipsai.clip.texttiler:[524:531]
+            "smoothing_width",
+            "window_compare_pool_method",
+        ]
+        missing_keys = find_missing_dict_keys(texttile_config, required_keys)
+        if len(missing_keys) != 0:
+            return "TextTiler missing configuration settings: {}".format(missing_keys)
+ (duplicate-code)
+clipsai/diarize/pyannote.py:1:0: R0801: Similar lines in 2 files
+==clipsai.clip.clip:[81:86]
+==clipsai.transcribe.transcription_element:[106:111]
+        return {
+            "start_time": self._start_time,
+            "end_time": self._end_time,
+            "start_char": self._start_char,
+            "end_char": self._end_char, (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 7.90/10 (previous run: 7.50/10, +0.40)

@@ -1,0 +1,2 @@
+clipsai/clip/clipfinder.py:459:89: E501 line too long (100 > 88 characters)
+clipsai/clip/texttiler.py:534:89: E501 line too long (100 > 88 characters)
