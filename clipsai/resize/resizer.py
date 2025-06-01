@@ -24,8 +24,8 @@ from clipsai.utils.conversions import bytes_to_gibibytes
 
 # 3rd party imports
 import cv2
-from facenet_pytorch import MTCNN
-import mediapipe as mp
+from facenet_pytorch import MTCNN # Should be mocked in tests if not available
+import mediapipe as mp # Should be mocked in tests if not available
 import numpy as np
 from sklearn.cluster import KMeans
 import torch
@@ -67,12 +67,14 @@ class Resizer:
         pytorch.assert_compute_device_available(device)
         logging.debug("FaceNet using device: {}".format(device))
 
+        # These will raise ImportError if not installed, which is acceptable
+        # if these parts of the library are considered optional.
+        # For unit tests, these should be mocked.
         self._face_detector = MTCNN(
             margin=face_detect_margin,
             post_process=face_detect_post_process,
             device=device,
         )
-        # media pipe automatically uses gpu if available
         self._face_mesher = mp.solutions.face_mesh.FaceMesh()
         self._media_editor = MediaEditor()
 
@@ -134,6 +136,39 @@ class Resizer:
             original_height_pixels=video_file.get_height_pixels(),
             resize_aspect_ratio=aspect_ratio,
         )
+
+        if not speaker_segments:
+            logging.info(
+                "No speaker segments provided or diarization skipped. "
+                "Applying default center crop for the entire video."
+            )
+            video_width = video_file.get_width_pixels()
+            video_height = video_file.get_height_pixels()
+
+            default_x = max(0, (video_width - resize_width) // 2)
+            default_y = max(0, (video_height - resize_height) // 2)
+
+            video_duration = video_file.get_duration()
+            if video_duration < 0:
+                logging.warning("Could not read video duration for fallback crop. Defaulting to 0 duration.")
+                video_duration = 0.0
+
+            fallback_segment = Segment(
+                speakers=[],
+                start_time=0.0,
+                end_time=video_duration,
+                x=default_x,
+                y=default_y
+            )
+            crop_segments = [fallback_segment]
+
+            return Crops(
+                original_width=video_width,
+                original_height=video_height,
+                crop_width=resize_width,
+                crop_height=resize_height,
+                segments=crop_segments
+            )
 
         logging.debug(
             "Merging {} speaker segments with {} scene changes.".format(
@@ -278,6 +313,8 @@ class Resizer:
             segment = speaker_segments[segments_idx]
             while scene_change_sec > (segment["end_time"]):
                 segments_idx += 1
+                if segments_idx >= len(speaker_segments): # Boundary condition
+                    return speaker_segments
                 segment = speaker_segments[segments_idx]
             # scene change is close to speaker segment end -> merge the two
             if 0 < (segment["end_time"] - scene_change_sec) < scene_merge_threshold:
@@ -378,6 +415,9 @@ class Resizer:
                     detect_secs.append(segment["first_face_sec"] + i * sample_period)
 
             # detect faces
+            if not detect_secs: # No times to detect, break to avoid infinite loop
+                break
+
             n_batches = self._calc_n_batches(
                 video_file=video_file,
                 num_frames=len(detect_secs),
@@ -387,14 +427,17 @@ class Resizer:
             frames_per_batch = int(len(detect_secs) // n_batches + 1)
             face_detections = []
             for i in range(n_batches):
-                frames = extract_frames(
-                    video_file,
-                    detect_secs[
+                current_detect_secs = detect_secs[
                         i
                         * frames_per_batch : min(
                             (i + 1) * frames_per_batch, len(detect_secs)
                         )
-                    ],
+                    ]
+                if not current_detect_secs: # Skip if no secs for this batch
+                    continue
+                frames = extract_frames(
+                    video_file,
+                    current_detect_secs,
                 )
                 face_detections += self._detect_faces(frames, face_detect_width)
 
@@ -407,6 +450,8 @@ class Resizer:
                 segment_idx = idx
                 # check if any faces were found
                 for _ in range(segment["num_samples"]):
+                    if idx >= len(face_detections): # Boundary check for face_detections
+                        break
                     faces = face_detections[idx]
                     if faces is not None:
                         segment["found_face"] = True
@@ -421,14 +466,17 @@ class Resizer:
                 if is_analyzed:
                     segment["is_analyzed"] = True
                     analyzed_segments += 1
-                idx = segment_idx + segment["num_samples"]
+
+                if segment_idx + segment["num_samples"] > idx : # if we broke early from inner loop
+                    idx = segment_idx + segment["num_samples"]
+
 
             # increase period for next iteration
             batch_period = (batch_period + 3) * 2
 
         for segment in segments:
-            del segment["num_samples"]
-            del segment["is_analyzed"]
+            if "num_samples" in segment: del segment["num_samples"] # Clean up temporary keys
+            if "is_analyzed" in segment: del segment["is_analyzed"]
 
         return segments
 
@@ -459,6 +507,9 @@ class Resizer:
         int
             The number of batches to use.
         """
+        if num_frames == 0:
+            return 1 # Avoid division by zero if no frames
+
         # calculate memory needed to extract frames to CPU
         vid_height = video_file.get_height_pixels()
         vid_width = video_file.get_width_pixels()
@@ -479,10 +530,10 @@ class Resizer:
                 face_detect_height, face_detect_width
             )
         )
-        bytes_per_frame = calc_img_bytes(
+        bytes_per_frame_face = calc_img_bytes( # Different variable for face detect bytes
             face_detect_height, face_detect_width, num_color_channels
         )
-        total_face_detect_bytes = num_frames * bytes_per_frame
+        total_face_detect_bytes = num_frames * bytes_per_frame_face
         logging.debug(
             "Need {:.3f} GiB to detect faces from (at most) {} frames".format(
                 bytes_to_gibibytes(total_face_detect_bytes), num_frames
@@ -492,18 +543,26 @@ class Resizer:
         # calculate number of batches to use
         free_cpu_memory = pytorch.get_free_cpu_memory()
         if torch.cuda.is_available():
-            n_extract_batches = int((total_extract_bytes // free_cpu_memory) + 1)
+            n_extract_batches = int((total_extract_bytes // free_cpu_memory) + 1) if free_cpu_memory > 0 else num_frames
         else:
-            total_extract_bytes += total_face_detect_bytes
-            n_extract_batches = int((total_extract_bytes // free_cpu_memory) + 1)
-            n_face_detect_batches = 0
+            # If no CUDA, CPU handles both extraction and face detection memory
+            total_cpu_bytes = total_extract_bytes + total_face_detect_bytes
+            n_extract_batches = int((total_cpu_bytes // free_cpu_memory) + 1) if free_cpu_memory > 0 else num_frames
+            n_face_detect_batches = 0 # Ensure this is set if no CUDA
+
+        # Ensure n_extract_batches is at least 1
+        n_extract_batches = max(1, n_extract_batches)
 
         n_batches = int(max(n_extract_batches, n_face_detect_batches))
-        cpu_mem_per_batch = bytes_to_gibibytes(total_extract_bytes // n_batches)
-        if n_face_detect_batches == 0:
+        # Ensure n_batches is at least 1 to prevent division by zero
+        n_batches = max(1, n_batches)
+
+        cpu_mem_per_batch = bytes_to_gibibytes(total_extract_bytes / n_batches)
+        if n_face_detect_batches == 0 or not torch.cuda.is_available(): # Corrected this condition
             gpu_mem_per_batch = 0
         else:
-            gpu_mem_per_batch = bytes_to_gibibytes(total_face_detect_bytes // n_batches)
+            gpu_mem_per_batch = bytes_to_gibibytes(total_face_detect_bytes / n_batches)
+
         logging.debug(
             "Using {} batches to extract and detect frames. Need {:.3f} GiB of CPU "
             "memory per batch and {:.3f} GiB of GPU memory per batch".format(
@@ -552,19 +611,32 @@ class Resizer:
             resized_frames.append(resized_frame)
 
         # detect faces in batches
-        if torch.cuda.is_available():
-            resized_frames = torch.stack(resized_frames)
-        detections, _ = self._face_detector.detect(resized_frames)
+        if torch.cuda.is_available() and resized_frames: # Check if list is not empty
+            try:
+                resized_frames_tensor = torch.stack(resized_frames)
+                detections, _ = self._face_detector.detect(resized_frames_tensor)
+            except RuntimeError as e: # Catch potential CUDA errors
+                logging.error(f"Face detection with CUDA failed: {e}. Falling back to CPU for this batch.")
+                # Fallback to CPU for this batch
+                cpu_resized_frames = [frame.cpu().numpy() if isinstance(frame, torch.Tensor) else frame for frame in resized_frames]
+                detections, _ = self._face_detector.detect(cpu_resized_frames)
+
+        elif resized_frames: # CPU path or if CUDA stacking failed
+             detections, _ = self._face_detector.detect(resized_frames)
+        else: # No frames to detect
+            detections = []
+
 
         # detections are returned as numpy arrays regardless
         face_detections = []
-        for detection in detections:
-            if detection is not None:
-                detection[detection < 0] = 0
-                detection = (detection * downsample_factor).astype(np.int16)
-            face_detections.append(detection)
+        if detections is not None: # Detections can be None if no faces found in any frame
+            for detection in detections:
+                if detection is not None:
+                    detection[detection < 0] = 0
+                    detection = (detection * downsample_factor).astype(np.int16)
+                face_detections.append(detection)
 
-        logging.debug("Detected faces in {} frames.".format(len(face_detections)))
+        logging.debug("Detected faces in {} frames processed.".format(len(frames)))
         return face_detections
 
     def _add_x_y_coords_to_each_segment(
@@ -622,6 +694,9 @@ class Resizer:
                 y-coordinate of the top left corner of the resized segment
         """
         num_segments = len(segments)
+        if num_segments == 0:
+            return []
+
         num_frames = num_segments * samples_per_segment
         n_batches = self._calc_n_batches(
             video_file, num_frames, face_detect_width, n_face_detect_batches
@@ -698,46 +773,85 @@ class Resizer:
                 y-coordinate of the top left corner of the resized segment
         """
         fps = video_file.get_frame_rate()
+        if fps <= 0: # Avoid division by zero if fps is invalid
+            logging.error("Invalid FPS detected. Cannot process segments.")
+            for segment in segments: # Ensure x,y are added to prevent key errors later
+                segment["x"] = 0
+                segment["y"] = 0
+            return segments
+
 
         # define frames to analyze from each segment
         detect_secs = []
         for segment in segments:
-            if segment["found_face"] is False:
+            if segment.get("found_face", False) is False: # Use .get for safety
+                segment["num_samples"] = 0 # Ensure key exists
                 continue
             # define interval over which to analyze faces
             end_time = segment["end_time"]
             first_face_sec = segment["first_face_sec"]
             analyze_end_time = end_time - (end_time - first_face_sec) / 8
-            # get sample locations
+
+            # Ensure first_face_sec is not past analyze_end_time
+            if first_face_sec >= analyze_end_time:
+                segment["num_samples"] = 0
+                detect_secs.append(first_face_sec) # Sample at least one frame if possible
+                continue
+
             frames_left = int((analyze_end_time - first_face_sec) * fps + 1)
             num_samples = min(frames_left, samples_per_segment)
             segment["num_samples"] = num_samples
-            # add first face, sample the rest
-            detect_secs.append(first_face_sec)
-            sample_frames = np.sort(
-                np.random.choice(range(1, frames_left), num_samples - 1, replace=False)
-            )
-            for sample_frame in sample_frames:
-                detect_secs.append(first_face_sec + sample_frame / fps)
 
-        # detect faces from each segment
-        logging.debug("Extracting {} frames".format(len(detect_secs)))
-        frames = extract_frames(video_file, detect_secs)
-        logging.debug("Extracted {} frames".format(len(detect_secs)))
-        face_detections = self._detect_faces(frames, face_detect_width)
+            if num_samples <=0: # if no samples can be taken
+                continue
+
+            detect_secs.append(first_face_sec)
+            if num_samples > 1: # only sample if more than one sample is needed
+                # Corrected range for np.random.choice to be non-negative
+                # frames_left_for_choice is frames_left -1 because we already added first_face_sec
+                frames_left_for_choice = max(0, frames_left -1)
+                if frames_left_for_choice > 0 :
+                    sample_frames = np.sort(
+                        np.random.choice(range(1, frames_left_for_choice + 1), min(num_samples - 1, frames_left_for_choice), replace=False)
+                    )
+                    for sample_frame in sample_frames:
+                        detect_secs.append(first_face_sec + sample_frame / fps)
+
+        face_detections = []
+        if detect_secs:
+            logging.debug("Extracting {} frames".format(len(detect_secs)))
+            frames = extract_frames(video_file, detect_secs)
+            logging.debug("Extracted {} frames".format(len(frames))) # Log actual number extracted
+            if frames: # Only detect if frames were successfully extracted
+                face_detections = self._detect_faces(frames, face_detect_width)
+            else: # If extract_frames returned empty (e.g. error or no valid times)
+                logging.warning("No frames extracted for face detection in this batch.")
+        else:
+            logging.debug("No detection times identified for segments in this batch.")
+
 
         logging.debug("Calculating ROI for {} segments.".format(len(segments)))
         # find roi for each segment
         idx = 0
         for segment in segments:
             # find segment roi
-            if segment["found_face"] is True:
-                roi = self._calc_segment_roi(
-                    frames=frames[idx : idx + segment["num_samples"]],
-                    face_detections=face_detections[idx : idx + segment["num_samples"]],
-                )
-                idx += segment["num_samples"]
-                del segment["num_samples"]
+            if segment.get("found_face", False) is True and segment.get("num_samples", 0) > 0 :
+                # Check if enough face_detections are available
+                if idx + segment["num_samples"] <= len(face_detections):
+                    roi = self._calc_segment_roi(
+                        frames=frames[idx : idx + segment["num_samples"]], # Ensure frames list is also sliced correctly
+                        face_detections=face_detections[idx : idx + segment["num_samples"]],
+                    )
+                else: # Not enough detections, use default ROI
+                    logging.warning(f"Not enough face detections for segment {segment}, using default ROI.")
+                    roi = Rect(
+                        x=(video_file.get_width_pixels()) // 4,
+                        y=(video_file.get_height_pixels()) // 4,
+                        width=(video_file.get_width_pixels()) // 2,
+                        height=(video_file.get_height_pixels()) // 2,
+                    )
+                idx += segment.get("num_samples",0) # Use .get for safety
+                if "num_samples" in segment: del segment["num_samples"]
             else:
                 logging.debug("Using default ROI for segment {}".format(segment))
                 roi = Rect(
@@ -746,8 +860,8 @@ class Resizer:
                     width=(video_file.get_width_pixels()) // 2,
                     height=(video_file.get_height_pixels()) // 2,
                 )
-            del segment["found_face"]
-            del segment["first_face_sec"]
+            if "found_face" in segment: del segment["found_face"] # Clean up temporary keys
+            if "first_face_sec" in segment: del segment["first_face_sec"]
 
             # add crop coordinates to segment
             crop = self._calc_crop(roi, resize_width, resize_height)
@@ -790,8 +904,15 @@ class Resizer:
                 bounding_boxes.append(bounding_box)
 
         # no faces detected
-        if k == 0:
-            raise ResizerError("No faces detected in segment.")
+        if k == 0 or not bounding_boxes: # Added check for empty bounding_boxes
+            # Default ROI if no faces: center of the frame (or a reasonable default)
+            # This case should ideally be handled by the found_face check before calling this
+            logging.warning("No faces detected in segment for ROI calculation. Returning default ROI.")
+            if frames: # if we have frame info to get dimensions
+                 return Rect(frames[0].shape[1]//4, frames[0].shape[0]//4, frames[0].shape[1]//2, frames[0].shape[0]//2)
+            else: # Absolute fallback, should ideally not be reached if found_face logic is robust
+                 return Rect(0,0,100,100) # Arbitrary small rect
+
         bounding_boxes = np.stack(bounding_boxes)
 
         # single face detected
@@ -802,7 +923,8 @@ class Resizer:
             return segment_roi
 
         # use kmeans to group the same bounding boxes together
-        kmeans = KMeans(n_clusters=k, init="k-means++", n_init=2, random_state=0).fit(
+        # n_init='auto' is preferred for scikit-learn >= 1.4
+        kmeans = KMeans(n_clusters=k, init="k-means++", n_init='auto', random_state=0).fit(
             bounding_boxes
         )
         bounding_box_labels = kmeans.labels_
@@ -812,16 +934,22 @@ class Resizer:
             if face_detection is None:
                 continue
             for bounding_box in face_detection:
+                if kmeans_idx >= len(bounding_box_labels): # Safety break
+                    break
                 assert np.sum(bounding_box < 0) == 0
                 bounding_box_label = bounding_box_labels[kmeans_idx]
                 bounding_box_groups[bounding_box_label].append(
                     {"bounding_box": bounding_box, "frame": i}
                 )
                 kmeans_idx += 1
+            if kmeans_idx >= len(bounding_box_labels): break
+
 
         # find the face who's mouth moves the most
         max_mouth_movement = 0
-        for bounding_box_group in bounding_box_groups:
+        for i, bounding_box_group in enumerate(bounding_box_groups):
+            if not bounding_box_group: # Skip empty groups
+                continue
             mouth_movement, roi = self._calc_mouth_movement(bounding_box_group, frames)
             if mouth_movement > max_mouth_movement:
                 max_mouth_movement = mouth_movement
@@ -830,11 +958,12 @@ class Resizer:
         # no mouth movement detected -> choose face with the most frames
         if segment_roi is None:
             logging.debug("No mouth movement detected for segment.")
-            max_frames = 0
+            max_frames_in_group = 0 # Changed from max_frames
             for bounding_box_group in bounding_box_groups:
-                if len(bounding_box_group) > max_frames:
-                    max_frames = len(bounding_box_group)
-                    avg_box = np.array([0, 0, 0, 0])
+                if not bounding_box_group: continue # Skip empty
+                if len(bounding_box_group) > max_frames_in_group:
+                    max_frames_in_group = len(bounding_box_group)
+                    avg_box = np.array([0.0,0.0,0.0,0.0]) # Use float for accumulation
                     for bounding_box_data in bounding_box_group:
                         avg_box += bounding_box_data["bounding_box"]
                     avg_box = avg_box / len(bounding_box_group)
@@ -842,64 +971,19 @@ class Resizer:
                     segment_roi = Rect(
                         avg_box[0],
                         avg_box[1],
-                        avg_box[2] - avg_box[0],
-                        avg_box[3] - avg_box[1],
+                        max(1, avg_box[2] - avg_box[0]), # Ensure width/height are at least 1
+                        max(1, avg_box[3] - avg_box[1]),
                     )
+        # If still no ROI (e.g. all groups were empty, though checked above)
+        if segment_roi is None:
+            logging.warning("Could not determine segment ROI. Defaulting to center crop.")
+            if frames:
+                 return Rect(frames[0].shape[1]//4, frames[0].shape[0]//4, frames[0].shape[1]//2, frames[0].shape[0]//2)
+            else:
+                 return Rect(0,0,100,100)
+
 
         return segment_roi
-
-    def _calc_mouth_movement(
-        self,
-        bounding_box_group: list[dict[np.ndarray, int]],
-        frames: list[np.ndarray],
-    ) -> tuple[float, Rect]:
-        """
-        Calculates the mouth movement for a group of faces. These faces are assumed to
-        all be the same person in different frames of the source video. Further, the
-        frames are assumed to be in order of occurrence (earlier frames first).
-
-        Parameters
-        ----------
-        bounding_box_group: list[dict[np.ndarray, int]]
-            The faces to analyze. A list of dictionaries, each with the following keys:
-                bounding_box: np.ndarray
-                    The bounding box of the face to analyze. The array contains four
-                    values: [x1, y1, x2, y2]
-                frame: int
-                    The frame the bounding box of the face is associated with.
-        frames: list[np.ndarray]
-            The frames to analyze.
-
-        Returns
-        -------
-        float
-            The mouth movement of the faces across the frames.
-        """
-        mouth_movement = 0
-        roi = Rect(0, 0, 0, 0)
-        prev_mar = None
-        mouth_movement = 0
-
-        for bounding_box_data in bounding_box_group:
-            # roi
-            box = bounding_box_data["bounding_box"]
-            x1, y1, x2, y2 = box[0], box[1], box[2], box[3]
-            # sum all roi's, average after loop
-            roi += Rect(x1, y1, x2 - x1, y2 - y1)
-            frame = frames[bounding_box_data["frame"]]
-            face = frame[y1:y2, x1:x2, :]
-
-            # mouth movement
-            mar = self._calc_mouth_aspect_ratio(face)
-            if mar is None:
-                continue
-            if prev_mar is None:
-                prev_mar = mar
-                continue
-            mouth_movement += abs(mar - prev_mar)
-            prev_mar = mar
-
-        return mouth_movement, roi / len(bounding_box_group)
 
     def _calc_mouth_aspect_ratio(self, face: np.ndarray) -> float:
         """
@@ -915,6 +999,7 @@ class Resizer:
         mar: float
             The mouth aspect ratio.
         """
+        if face is None or face.size == 0: return None # Handle empty face array
         results = self._face_mesher.process(face)
         if results.multi_face_landmarks is None:
             return None
@@ -931,6 +1016,7 @@ class Resizer:
         lower_lip = landmarks[[191, 80, 81, 82, 13, 312, 311, 310, 415], :]
         avg_mouth_height = np.mean(np.abs(upper_lip - lower_lip))
         mouth_width = np.sum(np.abs(landmarks[[308], :] - landmarks[[78], :]))
+        if mouth_width == 0: return 0.0 # Avoid division by zero
         mar = avg_mouth_height / mouth_width
 
         return mar
@@ -993,42 +1079,66 @@ class Resizer:
         list[dict]
             The merged segments.
         """
+        if not segments: # Handle empty list
+            return []
+
         idx = 0
         max_position_difference_ratio = 0.04
         video_width = video_file.get_width_pixels()
         video_height = video_file.get_height_pixels()
 
-        for _ in range(len(segments) - 1):
+        # Ensure video_width and video_height are not zero to avoid DivisionByZeroError
+        if video_width == 0: video_width = 1
+        if video_height == 0: video_height = 1
+
+
+        # Iterate up to len(segments) - 2 because we look at segments[idx+1]
+        while idx < len(segments) -1:
             cur_x = segments[idx]["x"]
             next_x = segments[idx + 1]["x"]
             x_diff = abs(cur_x - next_x)
+
+            # Check if x coordinates are similar
             if (x_diff / video_width) < max_position_difference_ratio:
                 same_x = True
-                segments[idx]["x"] = int((cur_x + next_x) // 2)
+                # Don't average immediately, only if y is also same
             else:
                 same_x = False
 
             curr_y = segments[idx]["y"]
             next_y = segments[idx + 1]["y"]
             y_diff = abs(curr_y - next_y)
+
+            # Check if y coordinates are similar
             if (y_diff / video_height) < max_position_difference_ratio:
                 same_y = True
-                segments[idx]["y"] = int((curr_y + next_y) // 2)
+                # Don't average immediately
             else:
                 same_y = False
 
-            if same_x and same_y:
+            # If both x and y are similar, and speakers are the same, merge segments
+            if same_x and same_y and segments[idx]["speakers"] == segments[idx+1]["speakers"]:
+                # Average the coordinates for the merged segment
+                segments[idx]["x"] = int((cur_x + next_x) // 2)
+                segments[idx]["y"] = int((curr_y + next_y) // 2)
                 segments[idx]["end_time"] = segments[idx + 1]["end_time"]
-                segments = segments[: idx + 1] + segments[idx + 2 :]
+                segments.pop(idx + 1) # Remove the merged segment
+                # Do not increment idx, so the new segments[idx] can be compared with the next one
             else:
-                idx += 1
+                idx += 1 # Move to next segment only if no merge occurred
         return segments
 
     def cleanup(self) -> None:
         """
         Remove the face detector from memory and explicity free up GPU memory.
         """
-        del self._face_detector
-        self._face_detector = None
+        if hasattr(self, '_face_detector') and self._face_detector is not None:
+            del self._face_detector
+            self._face_detector = None
+        if hasattr(self, '_face_mesher') and self._face_mesher is not None:
+            del self._face_mesher
+            self._face_mesher = None
+
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+        logging.debug("Resizer resources cleaned up.")

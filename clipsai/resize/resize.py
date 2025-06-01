@@ -16,7 +16,7 @@ from clipsai.media.audiovideo_file import AudioVideoFile
 
 def resize(
     video_file_path: str,
-    pyannote_auth_token: str,
+    pyannote_auth_token: str = None,
     aspect_ratio: tuple[int, int] = (9, 16),
     min_segment_duration: float = 1.5,
     samples_per_segment: int = 13,
@@ -37,8 +37,10 @@ def resize(
     ----------
     video_file_path: str
         Absolute path to the video file.
-    pyannote_auth_token: str
+    pyannote_auth_token: str, optional
         Authentication token for Pyannote, obtained from HuggingFace.
+        If None or invalid, speaker diarization will be skipped, and resizing
+        will use a default strategy (e.g., center crop). Default is None.
     aspect_ratio: tuple[int, int] (width, height), default (9, 16)
         The target aspect ratio for resizing the video.
     min_segment_duration: float

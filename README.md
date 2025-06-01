@@ -48,14 +48,14 @@ print("EndTime: ", clips[0].end_time)
 
 ### Resizing a video
 
-A hugging face access token is required to resize a video since [Pyannote](https://github.com/pyannote/pyannote-audio) is utilized for speaker diarization. You won't be charged for using Pyannote and instructions are on the [Pyannote HuggingFace ](https://huggingface.co/pyannote/speaker-diarization-3.0#requirements) page. For resizing the original video to the desired aspect ratio, refer to the resizing reference.
+A hugging face access token is required for speaker diarization since [Pyannote](https://github.com/pyannote/pyannote-audio) is utilized. You won't be charged for using Pyannote and instructions are on the [Pyannote HuggingFace ](https://huggingface.co/pyannote/speaker-diarization-3.0#requirements) page. The `pyannote_auth_token` parameter for the `resize` function is optional. If you do not provide a token, or if it's invalid, speaker diarization will be skipped, and the video will be resized using a default strategy (e.g., center cropping). For resizing the original video to the desired aspect ratio, refer to the resizing reference.
 
 ```python
 from clipsai import resize
 
 crops = resize(
     video_file_path="/abs/path/to/video.mp4",
-    pyannote_auth_token="pyannote_token",
+    pyannote_auth_token="pyannote_token",  # Optional: if None or invalid, uses default center crop
     aspect_ratio=(9, 16)
 )
 

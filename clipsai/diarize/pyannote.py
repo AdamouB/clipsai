@@ -24,8 +24,19 @@ from clipsai.media.audio_file import AudioFile
 from clipsai.utils.pytorch import get_compute_device, assert_compute_device_available
 
 # third party imports
-from pyannote.audio import Pipeline
-from pyannote.core.annotation import Annotation
+# Attempt to import Pipeline and related, but handle if not available due to optional install
+try:
+    from pyannote.audio import Pipeline
+    from pyannote.core.annotation import Annotation
+    PYANNOTE_AVAILABLE = True
+except ImportError:
+    PYANNOTE_AVAILABLE = False
+    # Define dummy classes if pyannote.audio is not installed, so type hints don't break
+    # and the rest of the class structure can be maintained.
+    class Pipeline: pass
+    class Annotation: pass
+
+
 import torch
 
 
@@ -34,14 +45,15 @@ class PyannoteDiarizer:
     A class for diarizing audio files using pyannote.
     """
 
-    def __init__(self, auth_token: str, device: str = None) -> None:
+    def __init__(self, auth_token: str = None, device: str = None) -> None:
         """
         Initialize PyannoteDiarizer
 
         Parameters
         ----------
-        auth_token: str
+        auth_token: str, optional
             Authentication token for Pyannote, obtained from HuggingFace.
+            If None or empty, diarization will be skipped.
         device: str
             PyTorch device to perform computations on. Ex: 'cpu', 'cuda'. Default is
             None (auto detects the correct device)
@@ -50,15 +62,39 @@ class PyannoteDiarizer:
         -------
         None
         """
+        self.pipeline = None
+        if not PYANNOTE_AVAILABLE:
+            logging.warning(
+                "pyannote.audio package not found. Speaker diarization will be skipped. "
+                "Please install it if you need this feature: pip install pyannote.audio"
+            )
+            return
+
+        if not auth_token:
+            logging.info(
+                "No pyannote auth token provided or token is empty. "
+                "Speaker diarization will be skipped."
+            )
+            return
+
         if device is None:
             device = get_compute_device()
-        assert_compute_device_available(device)
 
-        self.pipeline = Pipeline.from_pretrained(
-            "pyannote/speaker-diarization-3.1",
-            use_auth_token=auth_token,
-        ).to(torch.device(device))
-        logging.debug("Pyannote using device: {}".format(self.pipeline.device))
+        try:
+            assert_compute_device_available(device)
+            self.pipeline = Pipeline.from_pretrained(
+                "pyannote/speaker-diarization-3.1",
+                use_auth_token=auth_token,
+            ).to(torch.device(device))
+            logging.debug("Pyannote using device: {}".format(self.pipeline.device))
+        except Exception as e:
+            logging.warning(
+                f"Failed to load pyannote/speaker-diarization-3.1 pipeline "
+                f"with the provided token (Hugging Face Hub error: {e}). "
+                f"Speaker diarization will be skipped."
+            )
+            self.pipeline = None
+
 
     def diarize(
         self,
@@ -89,31 +125,48 @@ class PyannoteDiarizer:
             end_time: float
                 end time of the segment in seconds
         """
+        if self.pipeline is None:
+            logging.info(
+                "Pyannote pipeline not available. Skipping speaker diarization."
+            )
+            return []
+
         if audio_file.has_file_extension("wav"):
             wav_file = audio_file
         else:
-            wav_file_path = os.path.join(
-                audio_file.get_parent_dir_path(),
-                "{}{}.wav".format(
-                    audio_file.get_filename_without_extension(), str(uuid.uuid4().hex)
-                ),
+            # Generate a unique temporary path for the WAV file
+            temp_dir = tempfile.gettempdir()
+            temp_wav_filename = "{}{}.wav".format(
+                audio_file.get_filename_without_extension(),
+                str(uuid.uuid4().hex)
             )
+            wav_file_path = os.path.join(temp_dir, temp_wav_filename)
+
+            logging.debug(f"Extracting audio to temporary WAV file: {wav_file_path}")
             wav_file = audio_file.extract_audio(
                 extracted_audio_file_path=wav_file_path,
                 audio_codec="pcm_s16le",
-                overwrite=False,
+                overwrite=True, # Allow overwrite for temp files
             )
+            if wav_file is None:
+                logging.error("Failed to extract audio to WAV for diarization.")
+                return []
 
-        pyannote_segments: Annotation = self.pipeline({"audio": wav_file.path})
+        try:
+            pyannote_segments: Annotation = self.pipeline({"audio": wav_file.path})
 
-        adjusted_speaker_segments = self._adjust_segments(
-            pyannote_segments=pyannote_segments,
-            min_segment_duration=min_segment_duration,
-            duration=audio_file.get_duration(),
-            time_precision=time_precision,
-        )
+            adjusted_speaker_segments = self._adjust_segments(
+                pyannote_segments=pyannote_segments,
+                min_segment_duration=min_segment_duration,
+                duration=audio_file.get_duration(),
+                time_precision=time_precision,
+            )
+        finally:
+            # Clean up temporary WAV file if it was created
+            if not audio_file.has_file_extension("wav") and wav_file is not None:
+                logging.debug(f"Deleting temporary WAV file: {wav_file.path}")
+                wav_file.delete()
 
-        wav_file.delete()
 
         return adjusted_speaker_segments
 
@@ -156,6 +209,9 @@ class PyannoteDiarizer:
         adjusted_speaker_segments = []
         unique_speakers: set[int] = set()
 
+        if pyannote_segments is None: # Should not happen if pipeline worked
+             return []
+
         for segment, _, speaker_label in pyannote_segments.itertracks(True):
             next_start_time = segment.start
             next_end_time = segment.end
@@ -164,58 +220,76 @@ class PyannoteDiarizer:
             else:
                 next_speaker = int(speaker_label.split("_")[1])
 
-            # skip segments that are too short
             if next_end_time - next_start_time < min_segment_duration:
                 continue
 
-            # first identified speaker
-            if cur_speaker is None:
+            if cur_speaker is None: # First speaker segment
+                # If the audio starts with silence before the first speaker
+                if next_start_time > cur_start_time and cur_start_time == 0.0:
+                     adjusted_speaker_segments.append({
+                         "speakers": [], # No one speaking
+                         "start_time": round(cur_start_time, time_precision),
+                         "end_time": round(next_start_time, time_precision),
+                     })
                 cur_speaker = next_speaker
+                cur_start_time = next_start_time # Actual start of this speaker
                 cur_end_time = next_end_time
                 continue
 
-            # same speaker as next segment -> merge segments and continue
             if cur_speaker == next_speaker:
                 cur_end_time = max(cur_end_time, next_end_time)
                 continue
 
-            # Different speaker than next segment
-            # 1) The next speaker begins before the current speaker ends -> cut short
-            # the end of the current speaker's segment be the start of the next
-            # speaker segment.
-            # 2) The next speaker begins after the current speaker ends -> extend the
-            # current speaker's segment to end at the start of the next speaker segment.
-            cur_end_time = next_start_time
-            if cur_speaker is not None:
-                speakers = [cur_speaker]
-                unique_speakers.add(cur_speaker)
-            else:
-                speakers = []
-            adjusted_speaker_segments.append(
-                {
+            # Gap between current segment and next different speaker segment
+            if next_start_time > cur_end_time:
+                # Add current speaker segment
+                if cur_speaker is not None:
+                    speakers = [cur_speaker]; unique_speakers.add(cur_speaker)
+                else: speakers = []
+                adjusted_speaker_segments.append({
                     "speakers": speakers,
                     "start_time": round(cur_start_time, time_precision),
                     "end_time": round(cur_end_time, time_precision),
-                }
-            )
+                })
+                # Add silence segment for the gap
+                adjusted_speaker_segments.append({
+                    "speakers": [],
+                    "start_time": round(cur_end_time, time_precision),
+                    "end_time": round(next_start_time, time_precision),
+                })
+            # Overlap or direct continuation by different speaker
+            else: # next_start_time <= cur_end_time
+                adjusted_end_time = min(cur_end_time, next_start_time) # End current segment where new one starts
+                if cur_speaker is not None:
+                    speakers = [cur_speaker]; unique_speakers.add(cur_speaker)
+                else: speakers = []
+                if adjusted_end_time > cur_start_time: # Ensure segment has duration
+                    adjusted_speaker_segments.append({
+                        "speakers": speakers,
+                        "start_time": round(cur_start_time, time_precision),
+                        "end_time": round(adjusted_end_time, time_precision),
+                    })
 
             cur_speaker = next_speaker
-            cur_start_time = next_start_time
+            cur_start_time = next_start_time # Start of the new speaker's segment
             cur_end_time = next_end_time
 
-        # explicitly add the last segment
-        if cur_speaker is not None:
-            speakers = [cur_speaker]
-            unique_speakers.add(cur_speaker)
-        else:
-            speakers = []
-        adjusted_speaker_segments.append(
-            {
+
+        # Add the very last segment
+        if cur_start_time < duration : # Ensure there's a segment to add
+            if cur_speaker is not None:
+                speakers = [cur_speaker]; unique_speakers.add(cur_speaker)
+            else: speakers = []
+            adjusted_speaker_segments.append({
                 "speakers": speakers,
                 "start_time": round(cur_start_time, time_precision),
-                "end_time": round(duration, time_precision),
-            }
-        )
+                "end_time": round(duration, time_precision), # Segment goes to the end of audio
+            })
+
+        # Filter out zero-duration segments that might have been created by adjustments
+        adjusted_speaker_segments = [
+            s for s in adjusted_speaker_segments if s["end_time"] > s["start_time"]
+        ]
 
         adjusted_speaker_segments = self._relabel_speakers(
             adjusted_speaker_segments, unique_speakers
@@ -257,27 +331,24 @@ class PyannoteDiarizer:
                 end_time: float
                     end time of the segment in seconds
         """
-        # no speakers
-        if len(unique_speakers) == 0:
+        if not unique_speakers: # Handles empty set or if all segments had no speaker
             return speaker_segments
 
-        unique_speakers = sorted(list(unique_speakers))
-        # speaker labels are already contiguous
-        if len(unique_speakers) == unique_speakers[-1] + 1:
+        sorted_unique_speakers = sorted(list(unique_speakers))
+
+        # Check if relabeling is needed (i.e. if labels are already 0, 1, 2, ...)
+        if all(sorted_unique_speakers[i] == i for i in range(len(sorted_unique_speakers))):
             return speaker_segments
 
-        # create mapping from old speaker labels to new speaker labels
-        relabel_speaker_map = {}
-        for i in range(len(unique_speakers)):
-            new_speaker_num = i
-            old_speaker_num = unique_speakers[i]
-            relabel_speaker_map[old_speaker_num] = new_speaker_num
+        relabel_speaker_map = {old_label: new_label for new_label, old_label in enumerate(sorted_unique_speakers)}
 
-        # relabel
         for segment in speaker_segments:
             relabeled_speakers = []
             for speaker in segment["speakers"]:
-                relabeled_speakers.append(relabel_speaker_map[speaker])
+                if speaker in relabel_speaker_map: # Should always be true if speaker was in unique_speakers
+                    relabeled_speakers.append(relabel_speaker_map[speaker])
+                # else: # Should not happen if unique_speakers was built correctly
+                #    relabeled_speakers.append(speaker) # Keep original if somehow not in map
             segment["speakers"] = relabeled_speakers
 
         return speaker_segments
@@ -286,7 +357,14 @@ class PyannoteDiarizer:
         """
         Remove the diarization pipeline from memory and explicity free up GPU memory.
         """
-        del self.pipeline
-        self.pipeline = None
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
+        if hasattr(self, 'pipeline') and self.pipeline is not None:
+            del self.pipeline
+            self.pipeline = None
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            logging.debug("Pyannote pipeline cleaned up.")
+        else:
+            logging.debug("No Pyannote pipeline to clean up.")
+
+# Need to import tempfile for the diarize method's temporary WAV file handling
+import tempfile
