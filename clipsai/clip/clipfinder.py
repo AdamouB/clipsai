@@ -1,6 +1,6 @@
-"""
-Finding clips with AudioFiles using the TextTiling algorithm.
-"""
+"""Finding clips with AudioFiles using the TextTiling algorithm."""
+
+from __future__ import annotations
 # standard library imports
 import logging
 

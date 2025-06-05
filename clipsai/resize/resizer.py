@@ -1,10 +1,10 @@
-"""
-Resizing/cropping a media file to a different aspect ratio
+"""Resizing/cropping a media file to a different aspect ratio."""
 
-Notes
------
-- ROI is "region of interest"
-"""
+from __future__ import annotations
+
+# Notes
+# -----
+# ROI is "region of interest"
 # standard library imports
 import logging
 
@@ -24,11 +24,17 @@ from clipsai.utils.conversions import bytes_to_gibibytes
 
 # 3rd party imports
 import cv2
-from facenet_pytorch import MTCNN
-import mediapipe as mp
-import numpy as np
+try:
+    from facenet_pytorch import MTCNN
+except ModuleNotFoundError:  # pragma: no cover
+    MTCNN = None  # type: ignore
+try:
+    import mediapipe as mp
+except ModuleNotFoundError:  # pragma: no cover
+    mp = None  # type: ignore
 from sklearn.cluster import KMeans
 import torch
+import numpy as np
 
 
 class Resizer:
@@ -67,13 +73,19 @@ class Resizer:
         pytorch.assert_compute_device_available(device)
         logging.debug("FaceNet using device: {}".format(device))
 
-        self._face_detector = MTCNN(
-            margin=face_detect_margin,
-            post_process=face_detect_post_process,
-            device=device,
-        )
-        # media pipe automatically uses gpu if available
-        self._face_mesher = mp.solutions.face_mesh.FaceMesh()
+        if MTCNN is not None:
+            self._face_detector = MTCNN(
+                margin=face_detect_margin,
+                post_process=face_detect_post_process,
+                device=device,
+            )
+        else:  # pragma: no cover - dependency missing
+            self._face_detector = None
+
+        if mp is not None:
+            self._face_mesher = mp.solutions.face_mesh.FaceMesh()
+        else:  # pragma: no cover - dependency missing
+            self._face_mesher = None
         self._media_editor = MediaEditor()
 
     def resize(

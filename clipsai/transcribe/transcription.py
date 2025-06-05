@@ -22,10 +22,14 @@ from clipsai.filesys.manager import FileSystemManager
 from clipsai.utils.type_checker import TypeChecker
 
 # 3rd party imports
-import nltk
-from nltk.tokenize import sent_tokenize
-
-nltk.download("punkt")
+try:  # pragma: no cover - optional dependency
+    import nltk
+    from nltk.tokenize import sent_tokenize
+    nltk.download("punkt")
+except ModuleNotFoundError:  # pragma: no cover - fallback stub
+    nltk = None  # type: ignore
+    def sent_tokenize(text: str):  # type: ignore
+        return [text]
 
 
 class Transcription:

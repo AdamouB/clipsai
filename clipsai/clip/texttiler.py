@@ -1,5 +1,4 @@
-"""
-Finding topical subsections within text using the TextTiling algorithm.
+"""Finding topical subsections within text using the TextTiling algorithm.
 
 Notes
 -----
@@ -8,6 +7,8 @@ Notes
 - TextTiling using BERT embeddings was first done June 2021:
     https://arxiv.org/abs/2106.12978
 """
+
+from __future__ import annotations
 # standard library imports
 from collections.abc import Awaitable, Callable
 import logging
