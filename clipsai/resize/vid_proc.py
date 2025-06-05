@@ -1,6 +1,6 @@
-"""
-Utilities for video processing.
-"""
+"""Utilities for video processing."""
+
+from __future__ import annotations
 # standard library imports
 from concurrent.futures import ThreadPoolExecutor
 import logging
@@ -13,10 +13,17 @@ from .img_proc import rgb_to_gray
 from clipsai.media.video_file import VideoFile
 
 # third party imports
-import av
-import cv2
-import numpy as np
-from scenedetect import detect, AdaptiveDetector
+try:  # pragma: no cover - optional dependencies
+    import av
+    import cv2
+    import numpy as np
+    from scenedetect import detect, AdaptiveDetector
+except ModuleNotFoundError:  # pragma: no cover - fallback stubs
+    av = None  # type: ignore
+    cv2 = None  # type: ignore
+    np = None  # type: ignore
+    detect = None  # type: ignore
+    AdaptiveDetector = None  # type: ignore
 
 
 def extract_frames(

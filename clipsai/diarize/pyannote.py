@@ -1,5 +1,4 @@
-"""
-Diarize an audio file using pyannote/speaker-diarization-3.1
+"""Diarize an audio file using pyannote/speaker-diarization-3.1
 
 Notes
 -----
@@ -14,6 +13,8 @@ In other words, it takes approximately 1.5 minutes to process a one hour convers
 viable to analyze different subsections of the video, detect the number of faces, and
 use that as the number of speakers to detect.
 """
+
+from __future__ import annotations
 # standard library imports
 import logging
 import os

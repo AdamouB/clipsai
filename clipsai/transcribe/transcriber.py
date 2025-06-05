@@ -5,6 +5,8 @@ Notes
 -----
 - WhisperX GitHub: https://github.com/m-bain/whisperX
 """
+
+from __future__ import annotations
 # standard library imports
 from datetime import datetime
 import logging
@@ -23,8 +25,19 @@ from clipsai.utils.type_checker import TypeChecker
 from clipsai.utils.utils import find_missing_dict_keys
 
 # third party imports
-import torch
-import whisperx
+try:  # pragma: no cover - optional dependencies
+    import torch
+    import whisperx
+except ModuleNotFoundError:  # pragma: no cover
+    import types
+    torch = types.ModuleType("torch")
+    class _Cuda:
+        def is_available(self):
+            return False
+        def empty_cache(self):
+            pass
+    torch.cuda = _Cuda()
+    whisperx = None  # type: ignore
 
 
 class Transcriber:
