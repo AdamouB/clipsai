@@ -50,6 +50,21 @@ print("StartTime: ", clips[0].start_time)
 print("EndTime: ", clips[0].end_time)
 ```
 
+Use `GoogleClipFinder` for clip suggestions from Google's APIs. The
+`clip_length` parameter accepts `30`, `60`, `90`, or `'auto'`. When set
+to `'auto'` the finder picks one of 30, 60, or 90 seconds based on the
+video's duration or API-provided scores.
+
+```python
+from clipsai import GoogleClipFinder
+
+gfinder = GoogleClipFinder(clip_length="auto")
+clips = gfinder.find_clips(
+    video_file_path="/abs/path/to/video.mp4",
+    video_length=transcription.end_time,
+)
+```
+
 ### Resizing a video
 
 A hugging face access token is required to resize a video since [Pyannote](https://github.com/pyannote/pyannote-audio) is utilized for speaker diarization. You won't be charged for using Pyannote and instructions are on the [Pyannote HuggingFace ](https://huggingface.co/pyannote/speaker-diarization-3.0#requirements) page. For resizing the original video to the desired aspect ratio, refer to the resizing reference.
