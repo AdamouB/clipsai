@@ -1,79 +1,51 @@
 import pytest
-from unittest.mock import MagicMock
-from clipsai.clip.clipfinder import ClipFinderConfigManager
-from clipsai.clip.texttiler import TextTilerConfigManager
-from clipsai.transcribe.transcription import Transcription
+from unittest.mock import MagicMock, patch, mock_open
+
+from clipsai.google_video.viral_clip_finder import find_viral_clips
 
 
-@pytest.fixture
-def clip_finder_config_manager():
-    return ClipFinderConfigManager()
+class FakeDuration:
+    def __init__(self, seconds: float) -> None:
+        self._seconds = seconds
+
+    def total_seconds(self) -> float:
+        return self._seconds
 
 
-@pytest.fixture
-def texttiler_config_manager():
-    return TextTilerConfigManager()
+class FakeShot:
+    def __init__(self, start: float, end: float) -> None:
+        self.start_time_offset = FakeDuration(start)
+        self.end_time_offset = FakeDuration(end)
 
 
-@pytest.fixture
-def valid_transcription():
-    transcription = MagicMock(spec=Transcription)
-    transcription.end_time = 800.0
-    transcription.get_sentence_info.return_value = [{"sentence": "Example sentence"}]
-    return transcription
+def build_operation(shots):
+    result = MagicMock()
+    result.annotation_results = [MagicMock(shot_annotations=shots)]
+    operation = MagicMock()
+    operation.result.return_value = result
+    return operation
 
 
-# Testing ClipConfigManager
-def test_clip_finder_config_manager_valid_config(
-    clip_finder_config_manager: ClipFinderConfigManager,
-):
-    config = {
-        "cutoff_policy": "high",
-        "embedding_aggregation_pool_method": "max",
-        "min_clip_duration": 15,
-        "max_clip_duration": 900,
-        "smoothing_width": 3,
-        "window_compare_pool_method": "mean",
-    }
-    assert clip_finder_config_manager.check_valid_config(config) is None
+@patch("clipsai.google_video.viral_clip_finder.vi.VideoIntelligenceServiceClient")
+def test_find_viral_clips_auto(mock_client):
+    shots = [FakeShot(0, 5), FakeShot(5, 15), FakeShot(15, 20)]
+    mock_client.return_value.annotate_video.return_value = build_operation(shots)
+    with patch("builtins.open", mock_open(read_data=b"data")):
+        clips = find_viral_clips("video.mp4", clip_length="auto", max_results=2)
+    assert clips == [
+        {"start_time": 5.0, "end_time": 15.0},
+        {"start_time": 0.0, "end_time": 5.0},
+    ]
 
 
-def test_clip_finder_config_manager_invalid_config(
-    clip_finder_config_manager: ClipFinderConfigManager,
-):
-    config = {
-        "cutoff_policy": "invalid_policy",
-        "embedding_aggregation_pool_method": "invalid_method",
-        "min_clip_duration": -5,
-        "max_clip_duration": 5,
-        "smoothing_width": 1,
-        "window_compare_pool_method": "invalid_method",
-    }
-    assert isinstance(clip_finder_config_manager.check_valid_config(config), str)
-
-
-# Testing TextTileClipFinderConfigManager
-def test_texttiler_config_manager_valid_config(
-    texttiler_config_manager: TextTilerConfigManager,
-):
-    config = {
-        "k": 5,
-        "cutoff_policy": "high",
-        "embedding_aggregation_pool_method": "max",
-        "smoothing_width": 3,
-        "window_compare_pool_method": "mean",
-    }
-    assert texttiler_config_manager.check_valid_config(config) is None
-
-
-def test_texttiler_config_manager_invalid_config(
-    texttiler_config_manager: TextTilerConfigManager,
-):
-    config = {
-        "k": 1,
-        "cutoff_policy": "invalid_policy",
-        "embedding_aggregation_pool_method": "invalid_method",
-        "smoothing_width": 1,
-        "window_compare_pool_method": "invalid_method",
-    }
-    assert isinstance(texttiler_config_manager.check_valid_config(config), str)
+@patch("clipsai.google_video.viral_clip_finder.vi.VideoIntelligenceServiceClient")
+def test_find_viral_clips_fixed_length(mock_client):
+    shots = [FakeShot(0, 10)]
+    mock_client.return_value.annotate_video.return_value = build_operation(shots)
+    with patch("builtins.open", mock_open(read_data=b"data")):
+        clips = find_viral_clips("video.mp4", clip_length=4, max_results=3)
+    assert clips == [
+        {"start_time": 0.0, "end_time": 4.0},
+        {"start_time": 4.0, "end_time": 8.0},
+        {"start_time": 8.0, "end_time": 10.0},
+    ]

@@ -1,10 +1,10 @@
 # Functions
-from .clip.clipfinder import ClipFinder
 from .media.audio_file import AudioFile
 from .media.audiovideo_file import AudioVideoFile
 from .media.editor import MediaEditor
 from .media.video_file import VideoFile
 from .resize.resize import resize
+from .google_video.viral_clip_finder import find_viral_clips
 from .transcribe.transcriber import Transcriber
 
 # Types
@@ -18,7 +18,7 @@ __all__ = [
     "AudioFile",
     "AudioVideoFile",
     "Character",
-    "ClipFinder",
+    "find_viral_clips",
     "Clip",
     "Crops",
     "MediaEditor",
