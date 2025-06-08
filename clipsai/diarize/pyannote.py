@@ -25,7 +25,14 @@ from clipsai.media.audio_file import AudioFile
 from clipsai.utils.pytorch import get_compute_device, assert_compute_device_available
 
 # third party imports
-from pyannote.audio import Pipeline
+try:  # pragma: no cover - optional dependency
+    from pyannote.audio import Pipeline
+except ModuleNotFoundError:  # pragma: no cover - create stub for tests
+    class Pipeline:  # type: ignore
+        @staticmethod
+        def from_pretrained(*args, **kwargs):
+            raise ModuleNotFoundError("pyannote.audio is required")
+
 from pyannote.core.annotation import Annotation
 import torch
 

@@ -116,6 +116,15 @@ class Transcriber:
         media_file.assert_exists()
         media_file.assert_has_audio_stream()
 
+        # check that media duration is within supported bounds
+        duration = media_file.get_duration()
+        if duration != -1 and (duration < 240 or duration > 7200):
+            raise ValueError(
+                "Media duration {}s outside supported range 240-7200s".format(
+                    duration
+                )
+            )
+
         if iso6391_lang_code is not None:
             self._config_manager.assert_valid_language(iso6391_lang_code)
 
