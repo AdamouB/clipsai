@@ -430,34 +430,41 @@ class TextTiler:
 
 # Pasted from the SciPy cookbook: https://www.scipy.org/Cookbook/SignalSmooth
 def smooth(x, window_len=3, window="flat"):
-    """
-    Smooth the data using a window with requested size.
+    """Smooth an array using a window.
 
     This method is based on the convolution of a scaled window with the signal.
-    The signal is prepared by introducing reflected copies of the signal
-    (with the window size) in both ends so that transient parts are minimized
-    in the beginning and end part of the output signal.
+    The signal is prepared by introducing reflected copies of the signal (with
+    the window size) on both ends so that transient parts are minimized in the
+    beginning and end of the output signal.
 
-    :param x: the input signal
-    :param window_len: the dimension of the smoothing window; should be an odd integer
-    :param window: the type of window from 'flat', 'hanning', 'hamming', 'bartlett',
-    'blackman'
-        flat window will produce a moving average smoothing.
+    Parameters
+    ----------
+    x : numpy.ndarray
+        The input signal. Must be one-dimensional.
+    window_len : int, optional
+        Dimension of the smoothing window; should be an odd integer. When
+        ``window`` is an array, ``window_len`` is ignored and inferred from the
+        length of ``window``.
+    window : str or numpy.ndarray, optional
+        Either the name of the window type (``'flat'``, ``'hanning'``,
+        ``'hamming'``, ``'bartlett'``, ``'blackman'``) or an array representing
+        the window itself. A ``'flat'`` window produces a moving average.
 
-    :return: the smoothed signal
+    Returns
+    -------
+    numpy.ndarray
+        The smoothed signal.
 
-    example::
+    Examples
+    --------
+    >>> t = linspace(-2, 2, 0.1)
+    >>> x = sin(t) + randn(len(t)) * 0.1
+    >>> y = smooth(x)
 
-        t=linspace(-2,2,0.1)
-        x=sin(t)+randn(len(t))*0.1
-        y=smooth(x)
-
-    :see also: numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman,
-    numpy.convolve,
-        scipy.signal.lfilter
-
-    TODO: the window parameter could be the window itself if an array instead of a
-    string
+    See Also
+    --------
+    numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman,
+    numpy.convolve, scipy.signal.lfilter
     """
 
     if x.ndim != 1:
@@ -469,17 +476,24 @@ def smooth(x, window_len=3, window="flat"):
     if window_len < 3:
         return x
 
-    if window not in ["flat", "hanning", "hamming", "bartlett", "blackman"]:
-        raise ValueError(
-            "Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'"
-        )
+    allowed_windows = ["flat", "hanning", "hamming", "bartlett", "blackman"]
+
+    if isinstance(window, numpy.ndarray):
+        w = window
+        window_len = len(w)
+        if w.ndim != 1:
+            raise ValueError("Window array must be one-dimensional.")
+    else:
+        if window not in allowed_windows:
+            raise ValueError(
+                "Window must be one of {} or a numpy array.".format(allowed_windows)
+            )
+        if window == "flat":  # moving average
+            w = numpy.ones(window_len, "d")
+        else:
+            w = getattr(numpy, window)(window_len)
 
     s = numpy.r_[2 * x[0] - x[window_len:1:-1], x, 2 * x[-1] - x[-1:-window_len:-1]]
-
-    if window == "flat":  # moving average
-        w = numpy.ones(window_len, "d")
-    else:
-        w = eval("numpy." + window + "(window_len)")
 
     y = numpy.convolve(w / w.sum(), s, mode="same")
 
