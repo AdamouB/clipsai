@@ -180,7 +180,7 @@ class Transcription:
         self,
         start_time: float = None,
         end_time: float = None,
-    ) -> list:
+    ) -> list[dict]:
         """
         Returns the character info of the transcription
 
@@ -215,7 +215,7 @@ class Transcription:
         self,
         start_time: float = None,
         end_time: float = None,
-    ) -> list:
+    ) -> list[dict]:
         """
         Returns the word info of the text
 
@@ -252,7 +252,7 @@ class Transcription:
         self,
         start_time: float = None,
         end_time: float = None,
-    ) -> list:
+    ) -> list[dict]:
         """
         Returns the sentence information of the text.
 
