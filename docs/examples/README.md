@@ -1,0 +1,1 @@
+This directory was created to hold example Jupyter notebooks. The notebooks were previously stored in the repository's `sandbox` folder but were removed from version control to keep the repository lightweight.

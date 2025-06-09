@@ -203,3 +203,10 @@ test_files/
 
 # Ignore macOS system files
 .DS_Store
+# Documentation and examples
+sandbox/
+docs/examples/*.ipynb
+!docs/examples/README.md
+docs/report/*
+!docs/report/README.md
+
