@@ -49,3 +49,12 @@ def test_find_viral_clips_fixed_length(mock_client):
         {"start_time": 4.0, "end_time": 8.0},
         {"start_time": 8.0, "end_time": 10.0},
     ]
+
+
+@patch("clipsai.google_video.viral_clip_finder.vi.VideoIntelligenceServiceClient")
+def test_find_viral_clips_invalid_length(mock_client):
+    shots = [FakeShot(0, 10)]
+    mock_client.return_value.annotate_video.return_value = build_operation(shots)
+    with patch("builtins.open", mock_open(read_data=b"data")):
+        with pytest.raises(ValueError):
+            find_viral_clips("video.mp4", clip_length="bad")

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List, Dict
-
 from google.cloud import videointelligence_v1 as vi
 
 
@@ -17,7 +15,7 @@ def find_viral_clips(
     video_path: str,
     clip_length: str | float = "auto",
     max_results: int = 10,
-) -> List[Dict[str, float]]:
+) -> list[dict[str, float]]:
     """Find potential viral clips using Google Cloud Video Intelligence.
 
     Parameters
@@ -56,9 +54,7 @@ def find_viral_clips(
 
     if clip_length == "auto":
         segments.sort(key=lambda s: s[1] - s[0], reverse=True)
-        clips = [
-            {"start_time": s, "end_time": e} for s, e in segments[:max_results]
-        ]
+        clips = [{"start_time": s, "end_time": e} for s, e in segments[:max_results]]
         return clips
 
     try:
