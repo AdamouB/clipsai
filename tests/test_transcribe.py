@@ -15,24 +15,9 @@ from clipsai.transcribe.transcription import Transcription
 @pytest.fixture
 def transcriber_config_manager():
     return TranscriberConfigManager()
-
-
 @pytest.fixture
 def media_editor():
     return MediaEditor()
-
-
-@pytest.fixture
-def mock_whisperx_transcriber():
-    with patch("transcribe.transcribe.WhisperXTranscriber") as mock:
-        yield mock
-
-
-@pytest.fixture
-def mock_media_editor():
-    with patch("transcribe.transcribe.MediaEditor") as mock:
-        yield mock
-
 
 # Testing TranscriberConfigManager
 def test_assert_valid_config(transcriber_config_manager: TranscriberConfigManager):
