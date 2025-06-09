@@ -25,8 +25,8 @@ def resize(
     min_segment_duration: float = 1.5,
     samples_per_segment: int = 13,
     face_detect_width: int = 960,
-    face_detect_margin: int = 20,
-    face_detect_post_process: bool = False,
+    # face_detect_margin: int = 20, # REMOVED from Resizer.__init__
+    # face_detect_post_process: bool = False, # REMOVED from Resizer.__init__
     n_face_detect_batches: int = 8,
     min_scene_duration: float = 0.25,
     scene_merge_threshold: float = 0.25,
@@ -38,7 +38,7 @@ def resize(
     This process involves:
     1. Transcription and Speaker Diarization using Google Cloud Speech-to-Text.
     2. Scene Detection using Google Cloud Video Intelligence API.
-    3. Face Detection (currently using MTCNN/MediaPipe via Resizer).
+    3. Face Detection using Google Cloud Vision API (via Resizer).
     The results are combined to generate optimal crop coordinates.
 
     Parameters
@@ -62,14 +62,14 @@ def resize(
     samples_per_segment: int, optional
         Number of frames to sample per speaker segment for face detection. Default is 13.
     face_detect_width: int, optional
-        Width in pixels to which video frames are downscaled for face detection.
-        Default is 960.
-    face_detect_margin: int, optional
-        Margin around detected faces, used by the face detector. Default is 20.
-    face_detect_post_process: bool, optional
-        If True, applies post-processing to face detection results. Default is False.
+        Width in pixels to which video frames are downscaled for face detection before
+        being sent to the Google Cloud Vision API. Default is 960.
+    # face_detect_margin: (Removed, was MTCNN specific)
+    # face_detect_post_process: (Removed, was MTCNN specific)
     n_face_detect_batches: int, optional
-        Number of batches for processing face detection (relevant for GPU usage). Default is 8.
+        Number of batches for processing face detection. This may influence how frames
+        are grouped if processed in batches, but the actual batching for API calls
+        is handled within the Resizer's _detect_faces method. Default is 8.
     min_scene_duration: float, optional
         Minimum duration in seconds for a scene detected by Google Video Intelligence.
         Default is 0.25.
@@ -124,10 +124,9 @@ def resize(
 
     # Resizing
     logging.debug(f"RESIZING VIDEO ({media.get_filename()})")
-    # device param is still relevant for Resizer's face detection models (MTCNN/MediaPipe currently)
+    # device param is still relevant for potential local PyTorch ops in Resizer
     resizer = Resizer(
-        face_detect_margin=face_detect_margin,
-        face_detect_post_process=face_detect_post_process,
+        gcloud_config=gcloud_config, # Pass GCloudConfig to Resizer
         device=device,
     )
     crops = resizer.resize(

@@ -34,7 +34,10 @@ except ModuleNotFoundError:  # pragma: no cover - fallback stub
 
 class Transcription:
     """
-    A class for whisperx transcription data viewing, storage, and manipulation.
+    A class for transcription data viewing, storage, and manipulation.
+    It is designed to handle data primarily from Google Cloud Speech-to-Text,
+    including character-level information with speaker tags and interpolated timings.
+    Character timings are interpolated from word timings provided by the STT API.
     """
 
     def __init__(
@@ -47,8 +50,9 @@ class Transcription:
         Parameters
         ----------
         transcription: dict or JSONFile
-            - a dictionary object containing whisperx transcription
-            - a JSONFile containing a whisperx transcription
+            - A dictionary object containing transcription data, typically from
+              Google Cloud Speech-to-Text (see `Transcriber.transcribe` for format).
+            - A JSONFile containing such transcription data.
 
         Returns
         -------

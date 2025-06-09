@@ -1,9 +1,9 @@
 """
-Transcribe audio files using whisperx.
-
-Notes
------
-- WhisperX GitHub: https://github.com/m-bain/whisperX
+Handles audio transcription using Google Cloud Speech-to-Text API.
+Provides functionality to transcribe audio content from various media files,
+including audio extraction from video files, and processes the results into a
+standardized `Transcription` object. It supports speaker diarization and
+returns word-level timestamps with interpolated character-level timings.
 """
 
 from __future__ import annotations
@@ -38,15 +38,18 @@ class Transcriber:
         default_language_code: str = "en-US",
     ) -> None:
         """
-        Initializes the Transcriber with Google Cloud configuration.
+        Initializes the Transcriber.
 
         Parameters
         ----------
-        gcloud_config: GCloudConfig
-            Configuration object for Google Cloud services.
-        default_language_code: str, optional
-            Default language code (e.g., "en-US") to use if no specific language is
-            provided during transcription or for auto-detection hints.
+        gcloud_config : GCloudConfig
+            Configuration object for Google Cloud services. This must include
+            `project_id` and `temp_gcs_bucket_name` if local files need to be
+            processed, and `location` for some specific STT features if used.
+        default_language_code : str, optional
+            Default BCP-47 language code (e.g., "en-US") to use for transcription
+            if no specific language is provided to the `transcribe` method, or to
+            aid auto-detection by Google STT. Default is "en-US".
         """
         self._config_manager = TranscriberConfigManager()
         self._type_checker = TypeChecker()
@@ -68,15 +71,30 @@ class Transcriber:
         # batch_size parameter is removed as it's WhisperX specific
     ) -> Transcription:
         """
-        Transcribes the media file using Google Cloud Speech-to-Text.
+        Transcribes the given media file using Google Cloud Speech-to-Text API.
+
+        If the input `audio_file_path` points to a video file, audio is first
+        extracted into a temporary WAV file. This audio data (either the original
+        audio file or the extracted WAV) is then uploaded to a temporary GCS bucket
+        if it's not already a GCS URI. The `long_running_recognize` method of the
+        Speech-to-Text API is used for transcription, with speaker diarization,
+        automatic punctuation, and word time offsets enabled.
+
+        Character-level timings in the returned `Transcription` object are interpolated
+        from the word-level timings provided by the API. Speaker tags are also derived
+        from the API's diarization output.
 
         Parameters
         ----------
-        audio_file_path: str
-            Absolute path to the audio or video file to transcribe.
-        iso6391_lang_code: str or None
-            ISO 639-1 language code (e.g., "en-US", "es-ES").
-            If None, attempts language auto-detection using default_language_code as a hint or primary.
+        audio_file_path : str
+            Absolute path to the audio or video file to be transcribed.
+            If a video file is provided, its audio stream will be extracted.
+        iso6391_lang_code : str or None, optional
+            The BCP-47 language code of the language to be transcribed (e.g., "en-US",
+            "es-ES"). If None, the `default_language_code` specified during
+            `Transcriber` initialization will be used, or Google STT will attempt
+            auto-detection if the `default_language_code` also permits this (e.g. by being a base lang like "en").
+            Default is None.
         Returns
         -------
         Transcription
@@ -289,30 +307,28 @@ class Transcriber:
                 except Exception as e:
                     logging.error(f"Failed to delete temporary local audio file {temp_local_audio_path}: {e}")
 
-# REMOVE the entire detect_language method.
 class TranscriberConfigManager(ConfigManager):
     """
-    A class for getting information about and validating Transcriber
-    configuration settings.
+    Manages configuration settings for the Transcriber, specifically for use with
+    Google Cloud Speech-to-Text. Validates language codes.
     """
 
     def __init__(self):
-        """
-        Parameters
-        ----------
-        None
-        """
         super().__init__()
+        # Ensure _type_checker is available, initializing if not provided by ConfigManager
+        if not hasattr(self, '_type_checker'):
+            self._type_checker = TypeChecker()
 
     def check_valid_config(self, config: dict) -> str or None:
         """
-        Checks that 'config' contains valid configuration settings. Returns None if
-        valid, a descriptive error message if invalid.
+        Checks that the provided 'config' dictionary contains valid settings for
+        the Transcriber, primarily focusing on 'language'.
 
         Parameters
         ----------
-        config: dict
-            A dictionary containing the configuration settings for WhisperXTranscriber.
+        config : dict
+            A dictionary containing configuration settings. Expected to have a
+            'language' key for language code validation.
 
         Returns
         -------
@@ -358,9 +374,11 @@ class TranscriberConfigManager(ConfigManager):
 
     def get_valid_languages(self) -> list[str]:
         """
-        Returns the valid languages to transcribe with whisperx
+        Returns a list of example BCP-47 language codes that can be used with
+        Google Cloud Speech-to-Text. This list is not exhaustive.
 
-        - See https://github.com/m-bain/whisperX#other-languages for updated lang info
+        For a comprehensive list, refer to the Google Cloud documentation:
+        https://cloud.google.com/speech-to-text/docs/languages
 
         Parameters
         ----------
@@ -368,64 +386,74 @@ class TranscriberConfigManager(ConfigManager):
 
         Returns
         -------
-        list[str]:
-            list of ISO 639-1 language codes of languages that can be transcribed
+        list[str]
+            A list of example BCP-47 language codes.
         """
+        # This is a sample list. Users should refer to Google Cloud documentation
+        # for the full list of supported BCP-47 codes.
         valid_languages = [
-            "en",  # english
-            "fr",  # french
-            "de",  # german
-            "es",  # spanish
-            "it",  # italian
-            "ja",  # japanese
-            "zh",  # chinese
-            "nl",  # dutch
-            "uk",  # ukrainian
-            "pt",  # portuguese
+            "en-US",  # English, United States
+            "en-GB",  # English, United Kingdom
+            "es-ES",  # Spanish, Spain
+            "fr-FR",  # French, France
+            "de-DE",  # German, Germany
+            "it-IT",  # Italian, Italy
+            "ja-JP",  # Japanese, Japan
+            "zh-CN",  # Mandarin Chinese, Simplified
+            "nl-NL",  # Dutch, Netherlands
+            "pt-BR",  # Portuguese, Brazil
+            "ru-RU",  # Russian, Russia
+            # Add more common examples or direct users to documentation.
         ]
         return valid_languages
 
-    def check_valid_language(self, iso6391_lang_code: str) -> str or None:
+    def check_valid_language(self, language_code: str) -> str or None:
         """
-        Checks if 'iso6391_lang_code' is a valid ISO 639-1 language code for whisperx to
-        transcribe
+        Checks if 'language_code' is plausible as a BCP-47 language code.
+        This is a basic check and does not guarantee the language is supported by Google STT.
 
         Parameters
         ----------
-        iso6391_lang_code: str
-            The language code to check
+        language_code : str
+            The BCP-47 language code to check (e.g., "en-US").
 
         Returns
         -------
         str or None
-            None if 'iso6391_lang_code' is a valid ISO 639-1 language code for whisperx
-            to transcribe. A descriptive error message if 'iso6391_lang_code' is invalid
+            None if 'language_code' seems valid, otherwise a descriptive error message.
         """
-        if iso6391_lang_code not in self.get_valid_languages():
-            msg = "Invalid ISO 639-1 language '{}'. Must be one of: {}." "".format(
-                iso6391_lang_code, self.get_valid_languages()
-            )
-            return msg
-
+        # Basic BCP-47 format check (e.g., lang-REGION, lang)
+        # This is not a strict validation against all possible BCP-47 tags.
+        if not isinstance(language_code, str) or not (2 <= len(language_code) <= 10) or not "-" in language_code:
+            if len(language_code) == 2: # Allow simple 2-letter codes like "en", "es"
+                 pass # Valid simple form
+            else:
+                msg = (
+                    f"Invalid language code format '{language_code}'. Expected BCP-47 format "
+                    "(e.g., 'en-US', 'es', 'fr-CA'). Please refer to Google Cloud STT documentation "
+                    "for supported language codes."
+                )
+                return msg
+        # For simplicity, we're not checking against self.get_valid_languages() here,
+        # as that list is just a sample. The API will ultimately validate the language code.
         return None
 
-    def is_valid_language(self, iso6391_lang_code: str) -> bool:
+    def is_valid_language(self, language_code: str) -> bool:
         """
-        Returns True if 'iso6391_lang_code' is a valid ISO 639-1 language code for
-        whisperx to transcribe, False if not
+        Returns True if 'language_code' has a plausible BCP-47 format, False otherwise.
+        Does not guarantee the language is supported by Google STT.
 
         Parameters
         ----------
-        iso6391_lang_code: str
-            The language code to check
+        language_code : str
+            The BCP-47 language code to check.
 
         Returns
         -------
         bool
-            True if 'iso6391_lang_code' is a valid ISO 639-1 language code for whisperx
-            to transcribe, False if not
+            True if the format seems valid, False otherwise.
         """
-        msg = self.check_valid_language(iso6391_lang_code)
+        msg = self.check_valid_language(language_code)
         if msg is None:
             return True
         else:
